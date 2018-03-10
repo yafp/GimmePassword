@@ -18,3 +18,8 @@ Generates a memorable password out of several words from a wordlist.
 For details see: https://xkcd.com/936/
 
 ### Katakana
+
+
+## Credits
+* Wordlists: https://github.com/redacted/XKCD-password-generator/tree/master/xkcdpass/static
+* XKCD Comic: https://xkcd.com/936/
