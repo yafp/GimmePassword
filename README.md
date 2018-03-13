@@ -8,7 +8,7 @@ A simple password generator for android
 - 3 different password generation modes
 - calculates password entropy
 - checks password hash against Pwned Passwords v2
-- Translations (English, French and German)
+- Translations (English and German)
 
 
 ## Password Generation Modes
