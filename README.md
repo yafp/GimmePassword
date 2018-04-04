@@ -6,8 +6,8 @@ A simple password generator for android
 
 ## Features
 - 3 different password generation modes
-- Offers option to generated and/or user defined password against pwned passwords API v2
-- UI translations (English and German)
+- Offers option to verify generated and/or user defined password against pwned passwords API v2
+- UI translations (english and german)
 
 ## Password generation modes
 * Default
