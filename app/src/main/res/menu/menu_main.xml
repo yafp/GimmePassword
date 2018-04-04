@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="de.yafp.gimmepassword.GimmePassword">
+    <item
+        android:id="@+id/action_about"
+        android:title="@string/action_about" />
+    <item
+        android:id="@+id/action_issues"
+        android:title="@string/action_issues" />
+    <item
+        android:id="@+id/action_visit_pwned"
+        android:title="@string/action_visit_pwned" />
+    <item
+        android:id="@+id/action_visit_xkcd"
+        android:title="@string/action_visit_xkcd" />
+</menu>

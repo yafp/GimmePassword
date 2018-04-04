@@ -6,15 +6,13 @@ A simple password generator for android
 
 ## Features
 - 3 different password generation modes
-- calculates password entropy
-- checks password hash against Pwned Passwords v2
-- Translations (English and German)
+- Offers option to generated and/or user defined password against pwned passwords API v2
+- UI translations (English and German)
 
-
-## Password Generation Modes
+## Password generation modes
 * Default
 * XKCD
-* Katakana
+* Kana
 
 ### Default
 Generates a classic password based on user-selected charsets (uppercase, lowercase, numbers and special characters)
@@ -22,7 +20,7 @@ Generates a classic password based on user-selected charsets (uppercase, lowerca
 ### XKCD
 Generates memorable passwords out of several words from a wordlist.
 
-For details see: https://xkcd.com/936/
+For details see [here](https://xkcd.com/936/).
 
 Wordlist for the following languages are included
 
@@ -30,15 +28,16 @@ Wordlist for the following languages are included
 * finnish
 * german
 * italian
+* japanese
 * spanish
 
-
-### Katakana
+### Kata/Katakana
 Generates memorable passwords based on kana and katakana.
 
-For details see: https://en.wikipedia.org/wiki/Kana
+For details see [here]( https://en.wikipedia.org/wiki/Kana).
 
 
 ## Credits
-* Wordlists: https://github.com/redacted/XKCD-password-generator/tree/master/xkcdpass/static
-* XKCD Comic: https://xkcd.com/936/
+* [XKCD 936](https://xkcd.com/936/)
+* [Icon](https://www.iconfinder.com/icons/2639882/password_icon) - WTFPL license
+* [WordLists](https://github.com/redacted/XKCD-password-generator/tree/master/xkcdpass/static)

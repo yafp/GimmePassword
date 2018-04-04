@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="de.yafp.gimmepassword.GimmePassword">
+
+    <Button
+        android:id="@+id/t1_buttonGenerate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:onClick="on_generate_default"
+        android:text="@string/all_tabs_button_generate"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/t1_generatedPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/t1_charsets"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:clickable="false"
+        android:ems="10"
+        android:focusable="false"
+        android:hint="@string/t1_editText_headline_charsets"
+        android:inputType="none"
+        android:longClickable="false"
+        android:text="@string/t1_editText_headline_charsets"
+        android:textIsSelectable="false"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/t1_tv_description" />
+
+    <CheckBox
+        android:id="@+id/t1_cb_uppercaseLetters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:checked="true"
+        android:saveEnabled="false"
+        android:text="@string/t1_checkbox_charset_uppercase"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/t1_charsets" />
+
+    <CheckBox
+        android:id="@+id/t1_cb_lowercaseLetters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:checked="true"
+        android:text="@string/t1_checkbox_charset_lowercase"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/t1_cb_uppercaseLetters" />
+
+    <CheckBox
+        android:id="@+id/t1_cb_numbers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="8dp"
+        android:checked="true"
+        android:text="@string/t1_checkbox_charset_numbers"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/t1_charsets" />
+
+    <CheckBox
+        android:id="@+id/t1_cb_specialChars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="8dp"
+        android:checked="false"
+        android:text="@string/t1_checkbox_charset_specials"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/t1_cb_numbers" />
+
+    <EditText
+        android:id="@+id/t1_passwordLength"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="1-64"
+        android:inputType="numberSigned"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/t1_length" />
+
+    <EditText
+        android:id="@+id/t1_length"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:clickable="false"
+        android:ems="10"
+        android:focusable="false"
+        android:hint="@string/all_tabs_length"
+        android:inputType="none"
+        android:longClickable="false"
+        android:text="@string/all_tabs_length"
+        android:textIsSelectable="false"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/t1_cb_lowercaseLetters" />
+
+    <TextView
+        android:id="@+id/t1_generatedPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_weight="1"
+        android:background="@android:drawable/alert_light_frame"
+        android:clickable="false"
+        android:gravity="center"
+        android:hint="@string/all_tabs_password_field"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/t1_appLogo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/t1_tv_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/t1_textview_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/t1_appLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:alpha="0.3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/app_icon_default_32" />
+
+
+</android.support.constraint.ConstraintLayout>

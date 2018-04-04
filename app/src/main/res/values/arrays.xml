@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array
+        name="t2_country_arrays">
+        <item>@string/t2_lang_en</item>
+        <item>@string/t2_lang_fi</item>
+        <item>@string/t2_lang_de</item>
+        <item>@string/t2_lang_it</item>
+        <item>@string/t2_lang_jp</item>
+        <item>@string/t2_lang_es</item>
+    </string-array>
+</resources>

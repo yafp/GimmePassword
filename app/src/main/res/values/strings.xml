@@ -1,0 +1,80 @@
+<resources>
+
+    <!-- APP -->
+    <string name="app_name">Gimme Password</string>
+    <string name="app_icon">The Gimme Password app icon</string>
+
+    <!-- ABOUT WINDOW -->
+    <string name="app_descrip">Gimme Password is an ad-free password generator for Android.</string>
+    <string name="app_license">GPL v3</string>
+
+    <!-- MENU -->
+    <string name="action_about">About</string>
+    <string name="action_issues">Feedback</string>
+    <string name="action_visit_xkcd">Show XKCD #936</string>
+    <string name="action_visit_pwned">Visit pwnedpasswords.com</string>
+
+    <!-- Entropy -->
+    <string name="entropy_very_strong">very strong</string>
+    <string name="entropy_quiet_strong">quiet strong</string>
+    <string name="entropy_reasonable">reasonable</string>
+    <string name="entropy_weak">weak</string>
+    <string name="entropy_very_weak">very weak</string>
+    <string name="entropy_start_text">The password quality is</string>
+    <string name="entropy_end_text">(entropy: </string>
+
+    <!-- TAB NAMES -->
+    <string name="tab_text_1">Default</string>
+    <string name="tab_text_2">XKCD</string>
+    <string name="tab_text_3">Kana</string>
+    <string name="tab_text_4">PWNED DB</string>
+
+    <!-- ALL TABS -->
+    <string name="all_tabs_button_generate">Generate</string>
+    <string name="all_tabs_password_field">Password</string>
+    <string name="all_tabs_length">Password length</string>
+
+    <!-- TAB 1: DEFAULT -->
+    <string name="t1_textview_description">Generate a random password</string>
+    <string name="t1_editText_headline_charsets">Charsets</string>
+    <string name="t1_checkbox_charset_uppercase">Uppercase</string>
+    <string name="t1_checkbox_charset_lowercase">Lowercase</string>
+    <string name="t1_checkbox_charset_numbers">Numbers</string>
+    <string name="t1_checkbox_charset_specials">Special chars</string>
+    <string name="t1_error_empty_char_pool">Error: undefined characterset</string>
+
+    <!-- TAB 2: XKCD -->
+    <string name="t2_textview_description">Generate a XKCD #936 like password</string>
+    <string name="t2_editText_headline_wordcount">Words</string>
+    <string name="t2_editText_headline_language">Language</string>
+    <!-- languages for array.xml -->
+    <string name="t2_lang_en">English</string>
+    <string name="t2_lang_fi">Finnish</string>
+    <string name="t2_lang_de">German</string>
+    <string name="t2_lang_it">Italian</string>
+    <string name="t2_lang_jp">Japanese</string>
+    <string name="t2_lang_es">Spanish</string>
+
+    <!-- TAB 3: KATAKANA -->
+    <string name="t3_textview_description">Generate a memorable password</string>
+
+    <!-- TAB 4: PWNED -->
+    <string name="t4_textview_description">Valide password against pwned passwords db</string>
+    <string name="t4_et_headline">Your password</string>
+    <string name="t4_button_check_pwned">Check</string>
+    <string name="t4_error_password">Error: empty password</string>
+    <string name="t4_info">Generates a SHA-1 hash of your password and checks if that hash exists in the pwned database.</string>
+
+    <!-- Result Dialog -->
+    <string name="pw_generation_result_dialog_title">Result</string>
+    <string name="pw_generation_result_dialog_yes">Yes</string>
+    <string name="pw_generation_result_dialog_no">No</string>
+
+    <!-- pwned -->
+    <string name="ask_to_query_pwned">Do you want to query pwnedpasswords.com database for this password?</string>
+    <string name="pwned_warning_title">WARNING</string>
+    <string name="pwned_warning_message">This password exists in the pwnedpasswords.com database.</string>
+    <string name="pwned_ok_title">GOOD</string>
+    <string name="pwned_ok_message">This password is NOT known in the pwnedpasswords.com database.</string>
+
+</resources>
