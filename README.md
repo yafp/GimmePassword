@@ -53,6 +53,13 @@ For details see [here]( https://en.wikipedia.org/wiki/Kana).
 ![kana](https://raw.githubusercontent.com/yafp/GimmePassword/master/doc/images/GimmePassword_en_TabKana_1.png)
 
 
+## Password Verification
+Password verification against pwned passwords API
+
+![pwned](https://raw.githubusercontent.com/yafp/GimmePassword/master/doc/images/GimmePassword_en_TabPwned.png)
+
+
+
 ## Credits
 * [XKCD 936](https://xkcd.com/936/)
 * [Icon](https://www.iconfinder.com/icons/2639882/password_icon) - WTFPL license
