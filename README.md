@@ -24,6 +24,10 @@ A simple password generator for android
 ### Default
 Generates a classic password based on user-selected charsets (uppercase, lowercase, numbers and special characters)
 
+![default](https://raw.githubusercontent.com/yafp/GimmePassword/master/doc/images/GimmePassword_en_TabDefault.png)
+
+
+
 ### XKCD
 Generates memorable passwords out of several words from a wordlist.
 
@@ -38,10 +42,15 @@ Wordlist for the following languages are included
 * japanese
 * spanish
 
+![xkcd](https://raw.githubusercontent.com/yafp/GimmePassword/master/doc/images/GimmePassword_en_TabXKCD.png)
+
+
 ### Kata/Katakana
 Generates memorable passwords based on kana and katakana.
 
 For details see [here]( https://en.wikipedia.org/wiki/Kana).
+
+![kana](https://raw.githubusercontent.com/yafp/GimmePassword/master/doc/images/GimmePassword_en_TabKana_1.png)
 
 
 ## Credits
