@@ -102,7 +102,8 @@
         android:hint="1-64"
         android:inputType="numberSigned"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/t1_length" />
+        app:layout_constraintTop_toBottomOf="@+id/t1_length"
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/t1_length"
@@ -122,7 +123,8 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/t1_cb_lowercaseLetters" />
+        app:layout_constraintTop_toBottomOf="@+id/t1_cb_lowercaseLetters"
+        tools:ignore="TextFields" />
 
     <TextView
         android:id="@+id/t1_generatedPassword"
@@ -164,7 +166,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/app_icon_default_32" />
+        app:srcCompat="@drawable/app_icon_default_32"
+        android:contentDescription="@string/all_tabs_footer_image" />
 
 
 </android.support.constraint.ConstraintLayout>

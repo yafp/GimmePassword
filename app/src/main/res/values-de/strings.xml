@@ -52,4 +52,6 @@
     <string name="pwned_ok_title">GUT</string>
     <string name="app_license">GPL v3</string>
     <string name="app_icon">Das Gimme Passwort App Symbol</string>
+    <string name="all_tabs_footer_image">App Symbol Footer Bild</string>
+    <string name="t4_language">Sprache</string>
 </resources>

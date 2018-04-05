@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "886345968939",
+    "firebase_url": "https://gimmepassword.firebaseio.com",
+    "project_id": "gimmepassword",
+    "storage_bucket": "gimmepassword.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:886345968939:android:c3aedd345da54fe5",
+        "android_client_info": {
+          "package_name": "de.yafp.gimmepassword"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "886345968939-6crpdnujep164tcdmvl50k2bu7ru6no1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "de.yafp.gimmepassword",
+            "certificate_hash": "2fd32650ddaa77ae7a3b5cf21adb072f4ac2ce7b"
+          }
+        },
+        {
+          "client_id": "886345968939-b4o50mubct52logi31cnided0r09g3bb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpG6j21Rn_n74b8eHXSRripOSfwdaHfCQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "886345968939-b4o50mubct52logi31cnided0r09g3bb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

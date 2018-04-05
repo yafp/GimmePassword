@@ -33,6 +33,7 @@
     <string name="all_tabs_button_generate">Generate</string>
     <string name="all_tabs_password_field">Password</string>
     <string name="all_tabs_length">Password length</string>
+    <string name="all_tabs_footer_image">App Icon Footer Image</string>
 
     <!-- TAB 1: DEFAULT -->
     <string name="t1_textview_description">Generate a random password</string>
@@ -64,6 +65,8 @@
     <string name="t4_button_check_pwned">Check</string>
     <string name="t4_error_password">Error: empty password</string>
     <string name="t4_info">Generates a SHA-1 hash of your password and checks if that hash exists in the pwned database.</string>
+    <string name="t4_language">Language</string>
+
 
     <!-- Result Dialog -->
     <string name="pw_generation_result_dialog_title">Result</string>

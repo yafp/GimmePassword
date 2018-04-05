@@ -6,10 +6,12 @@ import android.text.Spanned;
 class InputFilterMinMax implements InputFilter {
     private final int min, max;
 
-    public InputFilterMinMax(int min, int max) {
-        this.min = min;
-        this.max = max;
-    }
+// --Commented out by Inspection START (05.04.18 14:45):
+//    public InputFilterMinMax(int min, int max) {
+//        this.min = min;
+//        this.max = max;
+//    }
+// --Commented out by Inspection STOP (05.04.18 14:45)
 
     public InputFilterMinMax(String min, String max) {
         this.min = Integer.parseInt(min);

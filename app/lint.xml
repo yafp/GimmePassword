@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="IconLocation">
+        <ignore path="src/main/res/drawable/app_icon_default_128.png" />
+        <ignore path="src/main/res/drawable/app_icon_default_16.png" />
+        <ignore path="src/main/res/drawable/app_icon_default_20.png" />
+        <ignore path="src/main/res/drawable/app_icon_default_24.png" />
+        <ignore path="src/main/res/drawable/app_icon_default_256.png" />
+        <ignore path="src/main/res/drawable/app_icon_default_32.png" />
+        <ignore path="src/main/res/drawable/app_icon_default_32.png" />
+        <ignore path="src/main/res/drawable/app_icon_default_32.png" />
+        <ignore path="src/main/res/drawable/app_icon_default_48.png" />
+        <ignore path="src/main/res/drawable/app_icon_default_512.png" />
+        <ignore path="src/main/res/drawable/app_icon_default_64.png" />
+        <ignore path="src/main/res/drawable/app_icon_white_128.png" />
+        <ignore path="src/main/res/drawable/app_icon_white_16.png" />
+        <ignore path="src/main/res/drawable/app_icon_white_20.png" />
+        <ignore path="src/main/res/drawable/app_icon_white_24.png" />
+        <ignore path="src/main/res/drawable/app_icon_white_256.png" />
+        <ignore path="src/main/res/drawable/app_icon_white_32.png" />
+        <ignore path="src/main/res/drawable/app_icon_white_48.png" />
+        <ignore path="src/main/res/drawable/app_icon_white_512.png" />
+        <ignore path="src/main/res/drawable/app_icon_white_64.png" />
+        <ignore path="src/main/res/drawable/error.png" />
+        <ignore path="src/main/res/drawable/ok.png" />
+    </issue>
+</lint>
