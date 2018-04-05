@@ -1,8 +1,15 @@
+[![License](https://img.shields.io/badge/license-GPL3-brightgreen.svg)](LICENSE)
+
+
+
+![logo](https://raw.githubusercontent.com/yafp/GimmePassword/master/app/src/main/res/drawable/app_icon_default_128.png)
+
 # GimmePassword
 A simple password generator for android
 
-## License
-* GPL v 3.0
+
+[![GooglePlay](https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png)](https://play.google.com/store/apps/details?id=de.yafp.gimmepassword)
+
 
 ## Features
 - 3 different password generation modes
