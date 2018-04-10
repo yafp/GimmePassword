@@ -25,7 +25,7 @@ public class TabXKCD extends Fragment{
 
         // Init some UI Items
         //
-        Log.v(TAG,"...preparing tab2: XKCD");
+        Log.d(TAG,"...preparing tab2: XKCD");
 
         // get view
         View view = inflater.inflate(R.layout.tab_xkcd, container, false);

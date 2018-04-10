@@ -84,16 +84,16 @@ public class GimmePassword extends AppCompatActivity {
 
         // customize action bar
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.app_icon_white_24);
+        getSupportActionBar().setIcon(R.mipmap.app_icon_white);
         getSupportActionBar().setTitle(" " + getResources().getString(R.string.app_name));
 
         // Create the adapter that will return a fragment for each of the three primary sections of the activity.
         /*
-      The {@link android.support.v4.view.PagerAdapter} that will provide fragments for each of the sections.
-      We use a {@link FragmentPagerAdapter} derivative, which will keep every loaded fragment in memory.
-      If this becomes too memory intensive, it may be best to switch to a
-      {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
+        The {@link android.support.v4.view.PagerAdapter} that will provide fragments for each of the sections.
+        We use a {@link FragmentPagerAdapter} derivative, which will keep every loaded fragment in memory.
+        If this becomes too memory intensive, it may be best to switch to a
+        {@link android.support.v4.app.FragmentStatePagerAdapter}.
+        */
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
@@ -109,13 +109,18 @@ public class GimmePassword extends AppCompatActivity {
         // createShortCut on homescreen
         createShortCut();
 
-        // collect a minimal amount of usage informations by calling a single url on app start
-        performGet("http://gimmepassword.yafp.de/s/index.html");
+        // Log Firebase Event
+        logFireBaseEvent("gp_app_Launch");
+    }
 
-        // Firebase Custom
+
+    // #############################################################################################
+    // WRITE FIREBASE LOG EVENT
+    // #############################################################################################
+    private void logFireBaseEvent(String message) {
         Bundle params = new Bundle();
-        params.putString("gp_app_launch", "1");
-        mFirebaseAnalytics.logEvent("gp_app_launch", params);
+        params.putString(message, "1");
+        mFirebaseAnalytics.logEvent(message, params);
     }
 
 
@@ -123,20 +128,18 @@ public class GimmePassword extends AppCompatActivity {
     //  CREATE SHORTCUT ON HOMESCREEN
     // #############################################################################################
     private void createShortCut() {
-        Log.v(TAG, "F: createShortCut");
+        Log.d(TAG, "F: createShortCut");
 
         Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
         shortcutintent.putExtra("duplicate", false);
         shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_NAME, getString(R.string.app_name));
-        Parcelable icon = Intent.ShortcutIconResource.fromContext(getApplicationContext(), R.drawable.app_icon_default_512);
+        Parcelable icon = Intent.ShortcutIconResource.fromContext(getApplicationContext(), R.mipmap.app_icon_default);
         shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
         shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(getApplicationContext(), GimmePassword.class));
         sendBroadcast(shortcutintent);
 
-        // Firebase Custom
-        Bundle params = new Bundle();
-        params.putString("gp_create_shortcut", "1");
-        mFirebaseAnalytics.logEvent("gp_create_shortcut", params);
+        // Log Firebase Event
+        logFireBaseEvent("gp_create_shortcut");
     }
 
 
@@ -144,7 +147,7 @@ public class GimmePassword extends AppCompatActivity {
     // HELPER: Convert to Hex
     // #############################################################################################
     private static String convertToHex(byte[] data) {
-        Log.v(TAG, "F: convertToHex");
+        Log.d(TAG, "F: convertToHex");
 
         StringBuilder buf = new StringBuilder();
         for (byte b : data) {
@@ -162,7 +165,7 @@ public class GimmePassword extends AppCompatActivity {
     // HELPER: SHA1
     // #############################################################################################
     private static String SHA1(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        Log.v(TAG, "F: SHA1");
+        Log.d(TAG, "F: SHA1");
 
         MessageDigest md = MessageDigest.getInstance("SHA-1");
         byte[] textBytes = text.getBytes("iso-8859-1");
@@ -182,10 +185,8 @@ public class GimmePassword extends AppCompatActivity {
         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);       // for center vertical
         toast.show();
 
-        // Firebase Custom
-        Bundle params = new Bundle();
-        params.putString("gp_display_toast", "1");
-        mFirebaseAnalytics.logEvent("gp_display_toast", params);
+        // Log Firebase Event
+        logFireBaseEvent("gp_display_toast");
     }
 
 
@@ -193,7 +194,7 @@ public class GimmePassword extends AppCompatActivity {
     // SHOW PASSWORD ENTROPY AND ASK FOR PWNED QUERY
     // #############################################################################################
     private void askUser(final String password, String entropy_text, String entropy_value) {
-        Log.v(TAG, "F: askUser");
+        Log.d(TAG, "F: askUser");
 
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
@@ -217,7 +218,7 @@ public class GimmePassword extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.pw_generation_result_dialog_title);
-        builder.setIcon(R.drawable.app_icon_default_32);
+        builder.setIcon(R.mipmap.app_icon_default);
         builder.setMessage(getResources().getString(R.string.entropy_start_text) + " " + entropy_text + " " + getResources().getString(R.string.entropy_end_text) + " " + entropy_value + " ).\n\n" + getResources().getString(R.string.ask_to_query_pwned)).setPositiveButton(getResources().getString(R.string.pw_generation_result_dialog_yes), dialogClickListener).setNegativeButton(getResources().getString(R.string.pw_generation_result_dialog_no), dialogClickListener).show();
 
     }
@@ -227,11 +228,10 @@ public class GimmePassword extends AppCompatActivity {
     // SHOW NEGATIVE PWNED RESULT
     // #############################################################################################
     private void showPwnedAlert() {
-        Log.v(TAG, "F: showPwnedAlert");
+        Log.d(TAG, "F: showPwnedAlert");
 
         AlertDialog alertDialog = new AlertDialog.Builder(GimmePassword.this).create();
-        //alertDialog.setIcon(android.R.drawable.stat_notify_error);
-        alertDialog.setIcon(R.drawable.error);
+        alertDialog.setIcon(R.drawable.dialog_error);
         alertDialog.setTitle(getResources().getString(R.string.pwned_warning_title));
         alertDialog.setMessage(getResources().getString(R.string.pwned_warning_message));
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
@@ -242,10 +242,8 @@ public class GimmePassword extends AppCompatActivity {
                 });
         alertDialog.show();
 
-        // Firebase Custom
-        Bundle params = new Bundle();
-        params.putString("gp_pwned_alert", "1");
-        mFirebaseAnalytics.logEvent("gp_pwned_alert", params);
+        // Log Firebase Event
+        logFireBaseEvent("gp_pwned_alert");
     }
 
 
@@ -253,11 +251,10 @@ public class GimmePassword extends AppCompatActivity {
     // SHOW POSITIVE PWNED RESULT
     // #############################################################################################
     private void showPwnedOK() {
-        Log.v(TAG, "F: showPwnedOK");
+        Log.d(TAG, "F: showPwnedOK");
 
         AlertDialog alertDialog = new AlertDialog.Builder(GimmePassword.this).create();
-        //alertDialog.setIcon(android.R.drawable.stat_notify_error);
-        alertDialog.setIcon(R.drawable.ok);
+        alertDialog.setIcon(R.drawable.dialog_ok);
         alertDialog.setTitle(getResources().getString(R.string.pwned_ok_title));
         alertDialog.setMessage(getResources().getString(R.string.pwned_ok_message));
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
@@ -268,10 +265,8 @@ public class GimmePassword extends AppCompatActivity {
                 });
         alertDialog.show();
 
-        // Firebase Custom
-        Bundle params = new Bundle();
-        params.putString("gp_pwned_ok", "1");
-        mFirebaseAnalytics.logEvent("gp_pwned_ok", params);
+        // Log Firebase Event
+        logFireBaseEvent("gp_pwned_ok");
     }
 
 
@@ -280,7 +275,7 @@ public class GimmePassword extends AppCompatActivity {
     // #############################################################################################
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        Log.v(TAG, "F: onCreateOptionsMenu");
+        Log.d(TAG, "F: onCreateOptionsMenu");
 
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -293,7 +288,7 @@ public class GimmePassword extends AppCompatActivity {
     // #############################################################################################
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Log.v(TAG, "F: onOptionsItemSelected");
+        Log.d(TAG, "F: onOptionsItemSelected");
 
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -302,15 +297,12 @@ public class GimmePassword extends AppCompatActivity {
 
         // Menu: Issues
         if (id == R.id.action_issues) {
-
             Uri uri = Uri.parse("https://github.com/yafp/GimmePassword/issues"); // missing 'http://' will cause crashed
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
 
-            // Firebase Custom
-            Bundle params = new Bundle();
-            params.putString("gp_url_issues", "1");
-            mFirebaseAnalytics.logEvent("gp_url_issues", params);
+            // Log Firebase Event
+            logFireBaseEvent("gp_url_issues");
 
             return true;
         }
@@ -342,17 +334,15 @@ public class GimmePassword extends AppCompatActivity {
     // MENU: OPEN URL XKCD
     // #############################################################################################
     private void openURL_XKCD() {
-        Log.v(TAG, "F: openURL_XKCD");
+        Log.d(TAG, "F: openURL_XKCD");
 
         // missing 'http://' will cause crashed
         Uri uri = Uri.parse("https://xkcd.com/936/");
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
 
-        // Firebase Custom
-        Bundle params = new Bundle();
-        params.putString("gp_url_xkcd", "1");
-        mFirebaseAnalytics.logEvent("gp_url_xkcd", params);
+        // Log Firebase Event
+        logFireBaseEvent("gp_url_xkcd");
     }
 
 
@@ -360,17 +350,15 @@ public class GimmePassword extends AppCompatActivity {
     // MENU: OPEN URL PWNED PASSWORDS
     // #############################################################################################
     private void openURL_pwned() {
-        Log.v(TAG, "F: openURL_pwned");
+        Log.d(TAG, "F: openURL_pwned");
 
         // missing 'http://' will cause crashed
         Uri uri = Uri.parse("https://haveibeenpwned.com/");
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
 
-        // Firebase Custom
-        Bundle params = new Bundle();
-        params.putString("gp_url_pwned", "1");
-        mFirebaseAnalytics.logEvent("gp_url_pwned", params);
+        // Log Firebase Event
+        logFireBaseEvent("gp_url_pwned");
     }
 
 
@@ -378,7 +366,7 @@ public class GimmePassword extends AppCompatActivity {
     // MENU: SHOW ABOUT DIALOG
     // #############################################################################################
     private void showAbout() throws NameNotFoundException {
-        Log.v(TAG, "F: showAbout");
+        Log.d(TAG, "F: showAbout");
 
         // Inflate the about message contents
         @SuppressLint("InflateParams") View messageView = getLayoutInflater().inflate(R.layout.about, null, false);
@@ -388,48 +376,15 @@ public class GimmePassword extends AppCompatActivity {
         PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setIcon(R.drawable.app_icon_default_64);
+        builder.setIcon(R.mipmap.app_icon_default);
         builder.setTitle(R.string.app_name);
         builder.setView(messageView);
-
-        // add dynamic information from packageManager
-        //
-        //Log.v(TAG, info.permissions);
-        List<String> gratedPermissions = getGrantedPermissions();
-        Log.v(TAG, gratedPermissions.toString());
-        // permissions are null:
-        //
-        // info.permissions (array?) vs requestedPermission
-        //builder.setMessage("\n\nPackage:\t\t" + info.packageName + "\nVersion:\t\t\t" + info.versionName + "\nBuild:\t\t\t\t" + info.versionCode + "\nPerms:\t\t\t" + info.permissions);
-        builder.setMessage("\nPackage:\t\t" + info.packageName + "\nVersion:\t\t\t" + info.versionName + "\nBuild:\t\t\t\t" + info.versionCode + "\nPerms:\t\t\t" + gratedPermissions.toString());
-
+        builder.setMessage("\nPackage:\t\t" + info.packageName + "\nVersion:\t\t\t" + info.versionName + "\nBuild:\t\t\t\t" + info.versionCode);
         builder.create();
         builder.show();
 
-        // Firebase Custom
-        Bundle params = new Bundle();
-        params.putString("gp_show_about", "1");
-        mFirebaseAnalytics.logEvent("gp_show_about", params);
-    }
-
-
-    // #############################################################################################
-    // HELPER: GET GRANTED PERMISSIONS
-    // #############################################################################################
-    private List<String> getGrantedPermissions() {
-        Log.v(TAG, "F: getGrantedPermissions");
-        List<String> granted = new ArrayList<>();
-        try {
-            PackageInfo pi = getPackageManager().getPackageInfo("de.yafp.gimmepassword", PackageManager.GET_PERMISSIONS);
-            for (int i = 0; i < pi.requestedPermissions.length; i++) {
-                if ((pi.requestedPermissionsFlags[i] & PackageInfo.REQUESTED_PERMISSION_GRANTED) != 0) {
-                    granted.add(pi.requestedPermissions[i]);
-                }
-            }
-        } catch (Exception e) {
-            Log.w(TAG, "...exception while trying to figure out granted permissions");
-        }
-        return granted;
+        // Log Firebase Event
+        logFireBaseEvent("gp_show_about");
     }
 
 
@@ -437,7 +392,7 @@ public class GimmePassword extends AppCompatActivity {
     // CALCULATE PASSWORD ENTROPY
     // #############################################################################################
     private String[] calculateEntropy(int length, int characters) {
-        Log.v(TAG, "F: calculateEntropy");
+        Log.d(TAG, "F: calculateEntropy");
 
         // calculate entropy
         double step1 = pow(characters, length);
@@ -473,15 +428,13 @@ public class GimmePassword extends AppCompatActivity {
         }
 
         // Log entropy results
-        Log.v(TAG, "...Size of charset: " + characters);
-        Log.v(TAG, "...Password length: " + length);
-        Log.v(TAG, "...Password quality is: " + password_quality);
-        Log.v(TAG, "...Password entropy is: " + password_entropy);
+        Log.i(TAG, "...Size of charset: " + characters);
+        Log.i(TAG, "...Password length: " + length);
+        Log.i(TAG, "...Password quality is: " + password_quality);
+        Log.i(TAG, "...Password entropy is: " + password_entropy);
 
-        // Firebase Custom
-        Bundle params = new Bundle();
-        params.putString("gp_calculated_entropy", "1");
-        mFirebaseAnalytics.logEvent("gp_calculated_entropy", params);
+        // Log Firebase Event
+        logFireBaseEvent("gp_calculated_entropy");
 
         return new String[]{password_quality, password_entropy};
     }
@@ -491,12 +444,10 @@ public class GimmePassword extends AppCompatActivity {
     // CHECK PASSWORD HASH ONLINE AGAINST api.pwnedpasswords.com
     // #############################################################################################
     private void checkPWNEDPasswords(String password) throws IOException {
-        Log.v(TAG, "F: checkPWNEDPasswords");
+        Log.d(TAG, "F: checkPWNEDPasswords");
 
-        // Firebase Custom
-        Bundle params = new Bundle();
-        params.putString("gp_pwned_check_started", "1");
-        mFirebaseAnalytics.logEvent("gp_pwned_check_started", params);
+        // Log Firebase Event
+        logFireBaseEvent("gp_pwned_check_started");
 
         // Some Links:
         // - https://www.troyhunt.com/i-wanna-go-fast-why-searching-through-500m-pwned-passwords-is-so-quick/
@@ -526,15 +477,15 @@ public class GimmePassword extends AppCompatActivity {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        Log.v(TAG, "SHA-1: " + hashstring);
+        Log.i(TAG, "SHA-1: " + hashstring);
 
         // generate substring (5 first chars of hash)
         String hashstring_5 = null;
         if (hashstring != null) {
             hashstring_5 = hashstring.substring(0, 5);
         }
-        Log.v(TAG, "...SHA-1 (first 5 chars): " + hashstring_5);
-        Log.v(TAG, "...should check: https://api.pwnedpasswords.com/range/" + hashstring_5);
+        Log.i(TAG, "...SHA-1 (first 5 chars): " + hashstring_5);
+        Log.i(TAG, "...should check: https://api.pwnedpasswords.com/range/" + hashstring_5);
 
         // Start online check
         boolean success;
@@ -542,7 +493,7 @@ public class GimmePassword extends AppCompatActivity {
         success = performGet("https://api.pwnedpasswords.com/range/" + hashstring_5);
         if (success) {
             Log.w(TAG, "...bummer, the 5-digit-hashstring is known at pwnedpasswords.com.");
-            Log.v(TAG, "...Should continue by checking the entire hash");
+            Log.i(TAG, "...Should continue by checking the entire hash");
 
             // Step 2: found 5 digit hashstring in DB, now check the entire hash
             success = performGet("https://api.pwnedpasswords.com/pwnedpassword/" + hashstring);
@@ -553,7 +504,7 @@ public class GimmePassword extends AppCompatActivity {
                 showPwnedAlert();
 
             } else {
-                Log.v(TAG, "...the complete password hash is not known at pwnedpasswords.com.");
+                Log.i(TAG, "...the complete password hash is not known at pwnedpasswords.com.");
 
                 // show ok dialog
                 showPwnedOK();
@@ -566,7 +517,7 @@ public class GimmePassword extends AppCompatActivity {
     // HELPER: FOR PWNED PASSWORDS
     // #############################################################################################
     private boolean performGet(String target_url) {
-        Log.v(TAG, "F: performGet");
+        Log.d(TAG, "F: performGet");
 
         try {
             URL url = new URL(target_url);
@@ -583,7 +534,7 @@ public class GimmePassword extends AppCompatActivity {
             }
 
             if (builder.length() == 0) {
-                Log.v(TAG, "...no answer");
+                Log.i(TAG, "...no answer");
             } else {
                 return true;
             }
@@ -597,9 +548,10 @@ public class GimmePassword extends AppCompatActivity {
     // #############################################################################################
     // Tab 1: GENERATE A DEFAULT PASSWORD
     // #############################################################################################
+    @SuppressWarnings("unused")
     @SuppressLint("SetTextI18n")
     public void on_generate_default(View v) {
-        Log.v(TAG, "F: on_generate_default");
+        Log.d(TAG, "F: on_generate_default");
 
         TextView t1_generatedPassword;
 
@@ -631,25 +583,25 @@ public class GimmePassword extends AppCompatActivity {
 
         // get checkbox state: uppercase
         if (t1_cb_uppercaseLetters.isChecked()) {
-            Log.v(TAG, "...adding uppercase to character pool");
+            Log.i(TAG, "...adding uppercase to character pool");
             allowedChars = allowedChars + charPool_uppercaseLetters;
         }
 
         // get checkbox state: lowercase
         if (t1_cb_lowercaseLetters.isChecked()) {
-            Log.v(TAG, "...adding lowercase to character pool");
+            Log.i(TAG, "...adding lowercase to character pool");
             allowedChars = allowedChars + charPool_lowercaseLetters;
         }
 
         // get checkbox state: numbers
         if (t1_cb_numbers.isChecked()) {
-            Log.v(TAG, "...adding numbers to character pool");
+            Log.i(TAG, "...adding numbers to character pool");
             allowedChars = allowedChars + charPool_numbers;
         }
 
         // get checkbox state: special chars
         if (t1_cb_specialChars.isChecked()) {
-            Log.v(TAG, "...adding special chars to character pool");
+            Log.i(TAG, "...adding special chars to character pool");
             allowedChars = allowedChars + charPool_specialChars;
         }
 
@@ -664,7 +616,7 @@ public class GimmePassword extends AppCompatActivity {
             // show error as toast
             displayToastMessage(cur_error);
         } else {
-            Log.v(TAG, "...character pool is configured to: " + allowedChars);
+            Log.i(TAG, "...character pool is configured to: " + allowedChars);
 
             // get password length
             EditText n_passwordLength = findViewById(R.id.t1_passwordLength);
@@ -678,7 +630,7 @@ public class GimmePassword extends AppCompatActivity {
             } else {
                 i_passwordLength = Integer.parseInt(s_passwordLength);
             }
-            Log.v(TAG, "...password length is set to " + Integer.toString(i_passwordLength));
+            Log.i(TAG, "...password length is set to " + Integer.toString(i_passwordLength));
 
             // password generation
             //
@@ -705,13 +657,11 @@ public class GimmePassword extends AppCompatActivity {
             // Resulting password as string
             String generatedPassword = t1_generatedPassword.getText().toString();
 
+            // Log Firebase Event
+            logFireBaseEvent("gp_generate_default");
+
             // show result
             askUser(generatedPassword, entropy_text, entropy_value);
-
-            // Firebase Custom
-            Bundle params = new Bundle();
-            params.putString("gp_generate_default", "1");
-            mFirebaseAnalytics.logEvent("gp_generate_default", params);
         }
     }
 
@@ -719,16 +669,11 @@ public class GimmePassword extends AppCompatActivity {
     // #############################################################################################
     // Tab 2: GENERATE A XKCD  PASSWORD
     // wordlists:  https://github.com/redacted/XKCD-password-generator/tree/master/xkcdpass/static
-    //
-    // TODO:
-    // - configurable separator (drop-down)
-    // - add Helper-option (--acrostic='chaos') -> Cxxx Hxxxx Axxxxx Oxxxxx Sxxxxxx
-    // - configurable min word length
-    // - configurable max word length
     // #############################################################################################
+    @SuppressWarnings("unused")
     @SuppressLint("SetTextI18n")
     public void on_generate_xkcd(View v) throws IOException {
-        Log.v(TAG, "F: on_generate_xkcd");
+        Log.d(TAG, "F: on_generate_xkcd");
 
         TextView t2_generatedPassword;
 
@@ -739,9 +684,7 @@ public class GimmePassword extends AppCompatActivity {
         Random randomGenerator = new Random();
 
         // get amount of words
-        Log.v(TAG, "...get amount of words");
         EditText n_passwordLength = findViewById(R.id.t2_passwordLength);
-
         String s_passwordLength = n_passwordLength.getText().toString().trim();
 
         if ((s_passwordLength.equals("0")) || (s_passwordLength.isEmpty()) || (s_passwordLength.equals(""))) {
@@ -751,19 +694,18 @@ public class GimmePassword extends AppCompatActivity {
         } else {
             i_passwordLength = Integer.parseInt(s_passwordLength);
         }
-        Log.v(TAG, "...amount of words is set to " + Integer.toString(i_passwordLength));
+        Log.i(TAG, "...amount of words is set to " + Integer.toString(i_passwordLength));
 
         // get selected language
         Spinner t2_s_language_selection = findViewById(R.id.t2_languageSelection);
         String selected_language = t2_s_language_selection.getSelectedItem().toString();
-        Log.v(TAG, "...selected language: " + selected_language);
+        Log.i(TAG, "...selected language: " + selected_language);
 
         String name_of_language_wordlist;
 
-        // Can't use resource strings in switch-statement because of:
+        // Can't use resource strings in switch-statement because of
         // Error: Constant expression required
-        //
-        //Thats why we are using an uly if/else
+        // Thats why we are using an uly if/else
         if (selected_language.equals(getResources().getString(R.string.t2_lang_es))) {
             name_of_language_wordlist = "words_es.txt";
         } else if (selected_language.equals(getResources().getString(R.string.t2_lang_jp))) {
@@ -778,10 +720,9 @@ public class GimmePassword extends AppCompatActivity {
             name_of_language_wordlist = "words_en.txt";
         }
 
-        Log.v(TAG, "...Selected wordlist: " + name_of_language_wordlist);
+        Log.i(TAG, "...Selected wordlist: " + name_of_language_wordlist);
 
         // read selected file line by line
-        //
         List<String> myWords;
         myWords = new ArrayList<>();
 
@@ -799,10 +740,9 @@ public class GimmePassword extends AppCompatActivity {
         }
         in.close();
 
-        Log.v(TAG, "...available words in this language-list: " + Integer.toString(myWords.size()));
+        Log.i(TAG, "...available words in this language-list: " + Integer.toString(myWords.size()));
 
         // generate xkcd password from wordlist
-        //
         StringBuilder generatedPassword = new StringBuilder();
         for (int i = 0; i < i_passwordLength; i++) {
             // generate a random int
@@ -824,7 +764,6 @@ public class GimmePassword extends AppCompatActivity {
         }
 
         // display the new password
-        //
         chars = generatedPassword.toString().toCharArray();
         t2_generatedPassword.setText(chars, 0, generatedPassword.length());
 
@@ -840,22 +779,21 @@ public class GimmePassword extends AppCompatActivity {
 
         generatedPassword = new StringBuilder(t2_generatedPassword.getText().toString());
 
+        // Log Firebase Event
+        logFireBaseEvent("gp_generate_xkcd");
+
         // run result dialog for user
         askUser(generatedPassword.toString(), entropy_text, entropy_value);
-
-        // Firebase Custom
-        Bundle params = new Bundle();
-        params.putString("gp_generate_xkcd", "1");
-        mFirebaseAnalytics.logEvent("gp_generate_xkcd", params);
     }
 
 
     // #############################################################################################
     // Tab 3: GENERATE A KATAKANA PASSWORD
     // #############################################################################################
+    @SuppressWarnings("unused")
     @SuppressLint("SetTextI18n")
     public void on_generate_katakana(View v) {
-        Log.v(TAG, "on_generate_katakana");
+        Log.d(TAG, "on_generate_katakana");
 
         TextView t3_generatedPassword;
 
@@ -864,7 +802,6 @@ public class GimmePassword extends AppCompatActivity {
         t3_generatedPassword.setText(null);
 
         // init some stuff
-        //
         StringBuilder generatedPassword = new StringBuilder();
         Random random;
         int index_c;
@@ -872,13 +809,10 @@ public class GimmePassword extends AppCompatActivity {
 
         // Define charsets
         //
-        //final String[] foo = {"k", "s", "t", "n", "h", "m", "y", "r", "w"};  // plain katakana
         final String[] consonants = {"k", "s", "t", "n", "h", "m", "y", "r", "w", "f", "g", "z", "d", "b", "p", "K", "S", "T", "N", "H", "M", "Y", "R", "W", "F", "G", "Z", "D", "B", "P"}; // katakana + bonus
         final String[] vowels = {"a", "i", "u", "e", "o", "A", "U", "E", "O"}; // skipping uppercase i
 
         // get password length
-        //
-        Log.v(TAG, "...get password length");
         EditText n_passwordLength = findViewById(R.id.t3_passwordLength);
 
         String s_passwordLength = n_passwordLength.getText().toString().trim();
@@ -890,11 +824,10 @@ public class GimmePassword extends AppCompatActivity {
         } else {
             i_passwordLength = Integer.parseInt(s_passwordLength);
         }
-        Log.v(TAG, "...password length is set to " + Integer.toString(i_passwordLength));
+        Log.i(TAG, "...password length is set to " + Integer.toString(i_passwordLength));
 
         // generate password
-        //
-        Log.v(TAG, "...generating password");
+        Log.i(TAG, "...generating password");
         for (int i = 0; i < i_passwordLength; i++) {
             // Odd: pick random consonants array string
             random = new Random();
@@ -909,12 +842,10 @@ public class GimmePassword extends AppCompatActivity {
         generatedPassword = new StringBuilder(generatedPassword.substring(0, i_passwordLength)); // Substring to match password length
 
         // display the new password
-        //
         chars = generatedPassword.toString().toCharArray();
         t3_generatedPassword.setText(chars, 0, i_passwordLength);
 
         // entropy
-        //
         int allowedChars = consonants.length + vowels.length; // get charset size
 
         String entropy_results[]; // prepare array for entropy values
@@ -929,21 +860,20 @@ public class GimmePassword extends AppCompatActivity {
 
         generatedPassword = new StringBuilder(t3_generatedPassword.getText().toString());
 
+        // Log Firebase Event
+        logFireBaseEvent("gp_generate_kana");
+
         // run result dialog for user
         askUser(generatedPassword.toString(), entropy_text, entropy_value);
-
-        // Firebase Custom
-        Bundle params = new Bundle();
-        params.putString("gp_generate_kana", "1");
-        mFirebaseAnalytics.logEvent("gp_generate_kana", params);
     }
 
 
     // #############################################################################################
     // Tab 4: QUERY PWNED DATABASE
     // #############################################################################################
+    @SuppressWarnings("unused")
     public void on_click_query_pwned_database(View v) {
-        Log.v(TAG, "F: on_click_query_pwned_database");
+        Log.d(TAG, "F: on_click_query_pwned_database");
 
         final String userPassword;
 
@@ -980,7 +910,7 @@ public class GimmePassword extends AppCompatActivity {
 
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            Log.v(TAG, "F: onCreateView");
+            Log.d(TAG, "F: onCreateView");
 
             return null;
         }
@@ -995,12 +925,12 @@ public class GimmePassword extends AppCompatActivity {
 
         SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
-            Log.v(TAG, "F: SectionsPagerAdapter");
+            Log.d(TAG, "F: SectionsPagerAdapter");
         }
 
         @Override
         public Fragment getItem(int position) {
-            Log.v(TAG, "F: getItem");
+            Log.d(TAG, "F: getItem");
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
 
@@ -1024,8 +954,7 @@ public class GimmePassword extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            Log.v(TAG, "F: getCount");
-            // Show 3 total pages.
+            Log.d(TAG, "F: getCount");
             return 4;
         }
     }

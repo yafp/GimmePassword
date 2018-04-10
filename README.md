@@ -1,14 +1,15 @@
 [![License](https://img.shields.io/badge/license-GPL3-brightgreen.svg)](LICENSE)
+[![Build Status](https://travis-ci.org/yafp/GimmePassword.svg?branch=master)](https://travis-ci.org/yafp/GimmePassword)
 
 
 
 ![logo](https://raw.githubusercontent.com/yafp/GimmePassword/master/app/src/main/res/drawable/app_icon_default_128.png)
 
 # GimmePassword
-A simple password generator for android
+A password generator for android
 
 
-[![GooglePlay](https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png)](https://play.google.com/store/apps/details?id=de.yafp.gimmepassword)
+[![GooglePlay](https://raw.githubusercontent.com/yafp/GimmePassword/master/doc/images/google-play-badge.png)](https://play.google.com/store/apps/details?id=de.yafp.gimmepassword)
 
 
 ## Features
@@ -25,7 +26,6 @@ A simple password generator for android
 Generates a classic password based on user-selected charsets (uppercase, lowercase, numbers and special characters)
 
 ![default](https://raw.githubusercontent.com/yafp/GimmePassword/master/doc/images/GimmePassword_en_TabDefault.png)
-
 
 
 ### XKCD

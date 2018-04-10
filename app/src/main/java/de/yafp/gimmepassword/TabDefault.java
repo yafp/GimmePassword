@@ -21,7 +21,7 @@ public class TabDefault extends Fragment{
 
         // Init some UI Items
         //
-        Log.v(TAG,"...preparing tab1: default");
+        Log.d(TAG,"...preparing tab1: default");
 
         // get view
         View view = inflater.inflate(R.layout.tab_default, container, false);
@@ -30,7 +30,6 @@ public class TabDefault extends Fragment{
         EditText n_passwordLength = view.findViewById(R.id.t1_passwordLength);
         n_passwordLength.setFilters(new InputFilter[]{new InputFilterMinMax("1", "64")});
 
-        //return inflater.inflate(R.layout.tab_default,container, false);
         return view;
     }
 }

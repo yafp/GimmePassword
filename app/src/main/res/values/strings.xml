@@ -60,7 +60,7 @@
     <string name="t3_textview_description">Generate a memorable password</string>
 
     <!-- TAB 4: PWNED -->
-    <string name="t4_textview_description">Valide password against pwned passwords db</string>
+    <string name="t4_textview_description">Validate password against pwned passwords db</string>
     <string name="t4_et_headline">Your password</string>
     <string name="t4_button_check_pwned">Check</string>
     <string name="t4_error_password">Error: empty password</string>

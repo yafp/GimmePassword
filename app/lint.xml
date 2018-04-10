@@ -21,6 +21,8 @@
         <ignore path="src/main/res/drawable/app_icon_white_48.png" />
         <ignore path="src/main/res/drawable/app_icon_white_512.png" />
         <ignore path="src/main/res/drawable/app_icon_white_64.png" />
+        <ignore path="src/main/res/drawable/dialog_error.png" />
+        <ignore path="src/main/res/drawable/dialog_ok.png" />
         <ignore path="src/main/res/drawable/error.png" />
         <ignore path="src/main/res/drawable/ok.png" />
     </issue>

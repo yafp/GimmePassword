@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-//import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class SplashScreen extends Activity {
 
@@ -16,9 +15,6 @@ public class SplashScreen extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
-
-        // Obtain the FirebaseAnalytics instance.
-        //FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         Thread splashTread = new Thread() {
             @Override
