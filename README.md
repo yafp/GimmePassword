@@ -1,9 +1,11 @@
 [![License](https://img.shields.io/badge/license-GPL3-brightgreen.svg)](LICENSE)
 [![Build Status](https://travis-ci.org/yafp/GimmePassword.svg?branch=master)](https://travis-ci.org/yafp/GimmePassword)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8aa6c1e009a740f3aee5256588c9ce87)](https://www.codacy.com/app/yafp/GimmePassword?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=yafp/GimmePassword&amp;utm_campaign=Badge_Grade)
 
 
 
-![logo](https://raw.githubusercontent.com/yafp/GimmePassword/master/app/src/main/res/drawable/app_icon_default_128.png)
+
+![logo](https://raw.githubusercontent.com/yafp/GimmePassword/master/doc/images/AppIcon/app_icon_default_128.png)
 
 # GimmePassword
 A password generator for android
@@ -25,7 +27,8 @@ A password generator for android
 ### Default
 Generates a classic password based on user-selected charsets (uppercase, lowercase, numbers and special characters)
 
-![default](https://raw.githubusercontent.com/yafp/GimmePassword/master/doc/images/GimmePassword_en_TabDefault.png)
+![default](https://raw.githubusercontent.com/yafp/GimmePassword/master/doc/images/GooglePlay/GimmePassword_en_TabDefault.png)
+
 
 
 ### XKCD
@@ -42,7 +45,7 @@ Wordlist for the following languages are included
 * japanese
 * spanish
 
-![xkcd](https://raw.githubusercontent.com/yafp/GimmePassword/master/doc/images/GimmePassword_en_TabXKCD.png)
+![xkcd](https://raw.githubusercontent.com/yafp/GimmePassword/master/doc/images/GooglePlay/GimmePassword_en_TabXKCD.png)
 
 
 ### Kata/Katakana
@@ -50,13 +53,13 @@ Generates memorable passwords based on kana and katakana.
 
 For details see [here]( https://en.wikipedia.org/wiki/Kana).
 
-![kana](https://raw.githubusercontent.com/yafp/GimmePassword/master/doc/images/GimmePassword_en_TabKana_1.png)
+![kana](https://raw.githubusercontent.com/yafp/GimmePassword/master/doc/images/GooglePlay/GimmePassword_en_TabKana_1.png)
 
 
 ## Password Verification
 Password verification against pwned passwords API
 
-![pwned](https://raw.githubusercontent.com/yafp/GimmePassword/master/doc/images/GimmePassword_en_TabPwned.png)
+![pwned](https://raw.githubusercontent.com/yafp/GimmePassword/master/doc/images/GooglePlay/GimmePassword_en_TabPwned.png)
 
 
 
