@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array
-        name="t2_country_arrays">
+        name="t2_country_array">
         <item>@string/t2_lang_en</item>
         <item>@string/t2_lang_fi</item>
         <item>@string/t2_lang_de</item>
         <item>@string/t2_lang_it</item>
         <item>@string/t2_lang_jp</item>
         <item>@string/t2_lang_es</item>
+    </string-array>
+
+
+    <string-array
+        name="t2_separator_array">
+        <item>@string/t2_separator_1</item>
+        <item>@string/t2_separator_2</item>
+        <item>@string/t2_separator_3</item>
+        <item>@string/t2_separator_4</item>
+        <item>@string/t2_separator_5</item>
+        <item>@string/t2_separator_6</item>
     </string-array>
 </resources>

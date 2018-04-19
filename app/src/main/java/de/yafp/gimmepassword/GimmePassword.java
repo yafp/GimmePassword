@@ -9,7 +9,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -26,6 +25,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -41,6 +42,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -52,11 +54,9 @@ import java.util.Random;
 import static java.lang.Math.log;
 import static java.lang.Math.pow;
 
-
 public class GimmePassword extends AppCompatActivity {
 
     private FirebaseAnalytics mFirebaseAnalytics;
-
     private static final String TAG = "Gimme Password";
 
     // Tab 3: Katakana
@@ -106,17 +106,80 @@ public class GimmePassword extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        // createShortCut on homescreen
-        createShortCut();
+
+        // V: 1.2.0
+        //
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                //do stuff here
+                Log.v(TAG, "----------++++++++++++++--------");
+                int position = tab.getPosition();
+                Log.v(TAG, Integer.toString(position));
+                Log.v(TAG, "----------++++++++++++++--------");
+
+                Window w = getWindow();
+                w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+                switch (position) {
+                    case 0:
+                        Log.v(TAG,"Selected Tab-1");
+                        //w.setStatusBarColor(getResources().getColor(R.color.colorTab1));
+                        return;
+
+
+                    case 1:
+                        Log.v(TAG,"Selected Tab-2");
+                        // Colorize StatusBar
+                        //w.setStatusBarColor(getResources().getColor(R.color.colorTab2));
+
+                        // Colorize ActionBar
+                        //Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorTab2)));
+
+
+                        //Setting up Action bar color using # color code.
+                        //
+                        //results in null object reference
+                        //
+                        //ActionBar actionbar = getActionBar();
+                        //ActionBar actionbar = getSupportActionBar();
+                        //actionbar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorTab2)));
+                        return;
+
+                    case 2:
+                        Log.v(TAG,"Selected Tab-3");
+                        //w.setStatusBarColor(getResources().getColor(R.color.colorTab3));
+                        return;
+
+
+                    case 3:
+                        Log.v(TAG,"Selected Tab-4");
+                        //w.setStatusBarColor(getResources().getColor(R.color.colorTab4));
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
         // Log Firebase Event
         logFireBaseEvent("gp_app_Launch");
     }
 
 
-    // #############################################################################################
-    // WRITE FIREBASE LOG EVENT
-    // #############################################################################################
+    /**
+     * generates a firebase log event from a given input string
+     *
+     * @param message the message text to be logged
+     */
     private void logFireBaseEvent(String message) {
         Bundle params = new Bundle();
         params.putString(message, "1");
@@ -124,28 +187,12 @@ public class GimmePassword extends AppCompatActivity {
     }
 
 
-    // #############################################################################################
-    //  CREATE SHORTCUT ON HOMESCREEN
-    // #############################################################################################
-    private void createShortCut() {
-        Log.d(TAG, "F: createShortCut");
-
-        Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
-        shortcutintent.putExtra("duplicate", false);
-        shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_NAME, getString(R.string.app_name));
-        Parcelable icon = Intent.ShortcutIconResource.fromContext(getApplicationContext(), R.mipmap.app_icon_default);
-        shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
-        shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(getApplicationContext(), GimmePassword.class));
-        sendBroadcast(shortcutintent);
-
-        // Log Firebase Event
-        logFireBaseEvent("gp_create_shortcut");
-    }
-
-
-    // #############################################################################################
-    // HELPER: Convert to Hex
-    // #############################################################################################
+    /**
+     * convert to hex
+     *
+     * @param data
+     * @return returns the converted HEX
+     */
     private static String convertToHex(byte[] data) {
         Log.d(TAG, "F: convertToHex");
 
@@ -161,11 +208,17 @@ public class GimmePassword extends AppCompatActivity {
         return buf.toString();
     }
 
-    // #############################################################################################
-    // HELPER: SHA1
-    // #############################################################################################
-    private static String SHA1(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        Log.d(TAG, "F: SHA1");
+
+    /**
+     *
+     *
+     * @param text
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     */
+    private static String generateSHA1(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        Log.d(TAG, "F: generateSHA1");
 
         MessageDigest md = MessageDigest.getInstance("SHA-1");
         byte[] textBytes = text.getBytes("iso-8859-1");
@@ -175,9 +228,11 @@ public class GimmePassword extends AppCompatActivity {
     }
 
 
-    // #############################################################################################
-    // HELPER: DISPLAY TOAST MESSAGE
-    // #############################################################################################
+    /**
+     * Displays a given string as a toast message to the user
+     *
+     * @param message the message to be displayed
+     */
     private void displayToastMessage(String message) {
         Log.v(TAG, "F: displayToastMessage");
 
@@ -190,9 +245,13 @@ public class GimmePassword extends AppCompatActivity {
     }
 
 
-    // #############################################################################################
-    // SHOW PASSWORD ENTROPY AND ASK FOR PWNED QUERY
-    // #############################################################################################
+    /**
+     * show password entropy and ask for pwned query
+     *
+     * @param password the actual password string which gets forwarded to checkPWNED
+     * @param entropy_text the generated entropy text
+     * @param entropy_value the generated entropy value
+     */
     private void askUser(final String password, String entropy_text, String entropy_value) {
         Log.d(TAG, "F: askUser");
 
@@ -212,6 +271,9 @@ public class GimmePassword extends AppCompatActivity {
                     case DialogInterface.BUTTON_NEGATIVE:
                         Log.v(TAG, "...user doesn't want to check pwned password for generated password");
                         break;
+
+                    default:
+                        break;
                 }
             }
         };
@@ -224,9 +286,9 @@ public class GimmePassword extends AppCompatActivity {
     }
 
 
-    // #############################################################################################
-    // SHOW NEGATIVE PWNED RESULT
-    // #############################################################################################
+    /**
+     * shows an pwned alert dialog
+     */
     private void showPwnedAlert() {
         Log.d(TAG, "F: showPwnedAlert");
 
@@ -247,9 +309,9 @@ public class GimmePassword extends AppCompatActivity {
     }
 
 
-    // #############################################################################################
-    // SHOW POSITIVE PWNED RESULT
-    // #############################################################################################
+    /**
+     * shows an pwned ok dialog
+     */
     private void showPwnedOK() {
         Log.d(TAG, "F: showPwnedOK");
 
@@ -270,9 +332,35 @@ public class GimmePassword extends AppCompatActivity {
     }
 
 
-    // #############################################################################################
-    // MENU: CREATE OPTIONS MENU
-    // #############################################################################################
+    /**
+     * shows a no-network alert dialog
+     */
+    private void showNetworkIssuesDialog() {
+        Log.d(TAG, "F: showNetworkIssuesDialog");
+
+        AlertDialog alertDialog = new AlertDialog.Builder(GimmePassword.this).create();
+        alertDialog.setIcon(R.drawable.dialog_error);
+        alertDialog.setTitle(getResources().getString(R.string.pwned_network_issues_title));
+        alertDialog.setMessage(getResources().getString(R.string.pwned_network_issues_message));
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+
+        // Log Firebase Event
+        logFireBaseEvent("showNetworkIssuesDialog");
+    }
+
+
+    /**
+     * adds menu items to the main menu
+     *
+     * @param menu the menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         Log.d(TAG, "F: onCreateOptionsMenu");
@@ -283,9 +371,12 @@ public class GimmePassword extends AppCompatActivity {
     }
 
 
-    // #############################################################################################
-    // MENU: SELECT OPTIONS MENU
-    // #############################################################################################
+    /**
+     * runs when the user selects an entry of the upper right sided menu
+     *
+     * @param item the selected menu item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Log.d(TAG, "F: onOptionsItemSelected");
@@ -318,23 +409,54 @@ public class GimmePassword extends AppCompatActivity {
 
         // Menu: XKCD
         if (id == R.id.action_visit_xkcd) {
-            openURL_XKCD();
+            openUrlXKCD();
         }
 
         // Menu: pwnedpasswords
         if (id == R.id.action_visit_pwned) {
-            openURL_pwned();
+            openUrlPwned();
         }
+
+        // Menu: Recommend Gimme Password
+        if (id == R.id.action_recommend_app) {
+
+            // https://developer.android.com/training/sharing/send.html
+            //
+            /*
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, recommend_message);
+            sendIntent.setType("text/plain");
+            startActivity(sendIntent);
+            */
+
+            Intent share = new Intent(android.content.Intent.ACTION_SEND);
+            share.setType("text/plain");
+            //share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET); // deprecated since API 21
+            share.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
+
+
+            // Add data to the intent, the receiving app will decide
+            // what to do with it.
+            share.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.recommend_text));
+            share.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=de.yafp.gimmepassword");
+
+            startActivity(Intent.createChooser(share, "Share link"));
+
+            // Log Firebase Event
+            logFireBaseEvent("gp_recommend_app");
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
 
 
-    // #############################################################################################
-    // MENU: OPEN URL XKCD
-    // #############################################################################################
-    private void openURL_XKCD() {
-        Log.d(TAG, "F: openURL_XKCD");
+    /**
+     * opens the XKCD #936 url
+     */
+    private void openUrlXKCD() {
+        Log.d(TAG, "F: openUrlXKCD");
 
         // missing 'http://' will cause crashed
         Uri uri = Uri.parse("https://xkcd.com/936/");
@@ -346,11 +468,11 @@ public class GimmePassword extends AppCompatActivity {
     }
 
 
-    // #############################################################################################
-    // MENU: OPEN URL PWNED PASSWORDS
-    // #############################################################################################
-    private void openURL_pwned() {
-        Log.d(TAG, "F: openURL_pwned");
+    /**
+     * opens the pwned url
+     */
+    private void openUrlPwned() {
+        Log.d(TAG, "F: openUrlPwned");
 
         // missing 'http://' will cause crashed
         Uri uri = Uri.parse("https://haveibeenpwned.com/");
@@ -362,9 +484,11 @@ public class GimmePassword extends AppCompatActivity {
     }
 
 
-    // #############################################################################################
-    // MENU: SHOW ABOUT DIALOG
-    // #############################################################################################
+    /**
+     * opens the about dialog
+     *
+     * @throws NameNotFoundException
+     */
     private void showAbout() throws NameNotFoundException {
         Log.d(TAG, "F: showAbout");
 
@@ -388,9 +512,23 @@ public class GimmePassword extends AppCompatActivity {
     }
 
 
-    // #############################################################################################
-    // CALCULATE PASSWORD ENTROPY
-    // #############################################################################################
+    /**
+     * calculates the password entropy of a given password with a defined length & amount of characters in its charset.
+     * In addition a string describing the password quality is generated as well
+     *
+     * regarding password quality:
+     *  simple example: https://www.bee-man.us/computer/password_strength.html
+     *
+     *  < 28 bits        = Very Weak; might keep out family members
+     *  28 - 35 bits     = Weak; should keep out most people, often good for desktop login passwords
+     *  36 - 59 bits     = Reasonable; fairly secure passwords for network and company passwords
+     *  60 - 127 bits    = Strong; can be good for guarding financial information
+     *  128+ bits        = Very Strong; often overkill
+     *
+     * @param length the password lenth
+     * @param characters the size of the character set used for password generation
+     * @return
+     */
     private String[] calculateEntropy(int length, int characters) {
         Log.d(TAG, "F: calculateEntropy");
 
@@ -404,16 +542,7 @@ public class GimmePassword extends AppCompatActivity {
         // calculated entropy as string
         String password_entropy = Double.toString(total);
 
-        // password quality
-        //
-        // add optional calculation of password strength
-        // simple example: https://www.bee-man.us/computer/password_strength.html
-        //
-        // < 28 bits        = Very Weak; might keep out family members
-        // 28 - 35 bits     = Weak; should keep out most people, often good for desktop login passwords
-        // 36 - 59 bits     = Reasonable; fairly secure passwords for network and company passwords
-        // 60 - 127 bits    = Strong; can be good for guarding financial information
-        // 128+ bits        = Very Strong; often overkill
+
         String password_quality;
         if (total > 128) {
             password_quality = getResources().getString(R.string.entropy_very_strong);
@@ -440,40 +569,43 @@ public class GimmePassword extends AppCompatActivity {
     }
 
 
-    // #############################################################################################
-    // CHECK PASSWORD HASH ONLINE AGAINST api.pwnedpasswords.com
-    // #############################################################################################
+    /**
+     * starts the pwned password processing routine.
+     *
+     *  Some Links:
+     *  - https://www.troyhunt.com/i-wanna-go-fast-why-searching-through-500m-pwned-passwords-is-so-quick/
+     *  - https://stackoverflow.com/questions/5980658/how-to-sha1-hash-a-string-in-android
+     *  - https://haveibeenpwned.com/API/v2#PwnedPasswords
+     *
+     *  Method 1:
+     *  GET https://api.pwnedpasswords.com/pwnedpassword/{password or hash}
+     *
+     *  When a password is found in the Pwned Passwords repository, the API will respond with HTTP 200 and include a count in the response body indicating how many times that password appears in the data set.
+     *  When no match is found, the response code is HTTP 404.
+     *
+     *
+     *  Method 2:
+     *  GET https://api.pwnedpasswords.com/range/{first 5 hash chars}
+     *
+     *  When a password hash with the same first 5 characters is found in the Pwned Passwords repository,
+     *  the API will respond with an HTTP 200 and include the suffix of every hash beginning with the specified prefix,
+     *  followed by a count of how many times it appears in the data set.
+     *  The API consumer can then search the results of the response for the presence of their
+     *  source hash and if not found, the password does not exist in the data set.
+     *
+     * @param password the generated password string
+     * @throws IOException
+     */
     private void checkPWNEDPasswords(String password) throws IOException {
         Log.d(TAG, "F: checkPWNEDPasswords");
 
         // Log Firebase Event
         logFireBaseEvent("gp_pwned_check_started");
 
-        // Some Links:
-        // - https://www.troyhunt.com/i-wanna-go-fast-why-searching-through-500m-pwned-passwords-is-so-quick/
-        // - https://stackoverflow.com/questions/5980658/how-to-sha1-hash-a-string-in-android
-        // - https://haveibeenpwned.com/API/v2#PwnedPasswords
-        //
-        // Method 1:
-        // GET https://api.pwnedpasswords.com/pwnedpassword/{password or hash}
-        //
-        // When a password is found in the Pwned Passwords repository, the API will respond with HTTP 200 and include a count in the response body indicating how many times that password appears in the data set.
-        // When no match is found, the response code is HTTP 404.
-        //
-        //
-        // Method 2:
-        // GET https://api.pwnedpasswords.com/range/{first 5 hash chars}
-        //
-        // When a password hash with the same first 5 characters is found in the Pwned Passwords repository,
-        // the API will respond with an HTTP 200 and include the suffix of every hash beginning with the specified prefix,
-        // followed by a count of how many times it appears in the data set.
-        // The API consumer can then search the results of the response for the presence of their
-        // source hash and if not found, the password does not exist in the data set.
-
         // generate sha-1 of password
         String hashstring = null;
         try {
-            hashstring = SHA1(password);
+            hashstring = generateSHA1(password);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -513,9 +645,12 @@ public class GimmePassword extends AppCompatActivity {
     }
 
 
-    // #############################################################################################
-    // HELPER: FOR PWNED PASSWORDS
-    // #############################################################################################
+    /**
+     * helper for pwned password check routine
+     *
+     * @param target_url
+     * @return
+     */
     private boolean performGet(String target_url) {
         Log.d(TAG, "F: performGet");
 
@@ -538,20 +673,27 @@ public class GimmePassword extends AppCompatActivity {
             } else {
                 return true;
             }
+        } catch(UnknownHostException e) {
+            e.printStackTrace();
+            Log.w(TAG, "Unable to contact target_url. Most likely there is no network available.");
+            showNetworkIssuesDialog();
         } catch (IOException e) {
             e.printStackTrace();
+            Log.w(TAG, "Unknown issue while trying to connect to a remote URL.");
         }
         return false;
     }
 
 
-    // #############################################################################################
-    // Tab 1: GENERATE A DEFAULT PASSWORD
-    // #############################################################################################
+    /**
+     * geneated a random default password
+     *
+     * @param v the view
+     */
     @SuppressWarnings("unused")
     @SuppressLint("SetTextI18n")
-    public void on_generate_default(View v) {
-        Log.d(TAG, "F: on_generate_default");
+    public void onGenerateDefault(View v) {
+        Log.d(TAG, "F: onGenerateDefault");
 
         TextView t1_generatedPassword;
 
@@ -564,7 +706,6 @@ public class GimmePassword extends AppCompatActivity {
         String charPool_lowercaseLetters = "abcdefghijklmnopqrstuvwxyz"; //26
         String charPool_numbers = "0123456789"; // 10
         String charPool_specialChars = "?!.;:,-_+*/\\|<>{[()]}#&%$§@€^`´~"; // 32
-        // overall 94
 
         String allowedChars = "";
         Random random;
@@ -606,7 +747,8 @@ public class GimmePassword extends AppCompatActivity {
         }
 
         // Check if at least 1 pool is selected or not
-        if (allowedChars.equals("")) {
+        //if (allowedChars.equals("")) {
+        if(("").equals(allowedChars)) {
             // get error string
             String cur_error = getResources().getString(R.string.t1_error_empty_char_pool);
 
@@ -620,7 +762,6 @@ public class GimmePassword extends AppCompatActivity {
 
             // get password length
             EditText n_passwordLength = findViewById(R.id.t1_passwordLength);
-
             String s_passwordLength = n_passwordLength.getText().toString().trim();
 
             if ((s_passwordLength.equals("0")) || (s_passwordLength.isEmpty()) || (s_passwordLength.equals(""))) {
@@ -633,7 +774,6 @@ public class GimmePassword extends AppCompatActivity {
             Log.i(TAG, "...password length is set to " + Integer.toString(i_passwordLength));
 
             // password generation
-            //
             char[] allowedCharsArray = allowedChars.toCharArray();
             chars = new char[i_passwordLength];
             random = new Random();
@@ -666,14 +806,18 @@ public class GimmePassword extends AppCompatActivity {
     }
 
 
-    // #############################################################################################
-    // Tab 2: GENERATE A XKCD  PASSWORD
-    // wordlists:  https://github.com/redacted/XKCD-password-generator/tree/master/xkcdpass/static
-    // #############################################################################################
+    /**
+     * generates a XKCD 936 like password, using a language based wordlist.
+     * wordlist sources:
+     * - https://github.com/redacted/XKCD-password-generator/tree/master/xkcdpass/static
+     *
+     * @param v the view
+     * @throws IOException
+     */
     @SuppressWarnings("unused")
     @SuppressLint("SetTextI18n")
-    public void on_generate_xkcd(View v) throws IOException {
-        Log.d(TAG, "F: on_generate_xkcd");
+    public void onGenerateXKCD(View v) throws IOException {
+        Log.d(TAG, "F: onGenerateXKCD");
 
         TextView t2_generatedPassword;
 
@@ -742,6 +886,11 @@ public class GimmePassword extends AppCompatActivity {
 
         Log.i(TAG, "...available words in this language-list: " + Integer.toString(myWords.size()));
 
+        // get seperator
+        Spinner t2_s_separator_selection = findViewById(R.id.t2_seperatorSelection);
+        String selected_separator = t2_s_separator_selection.getSelectedItem().toString();
+        Log.i(TAG, "...selected separator: " + selected_separator);
+
         // generate xkcd password from wordlist
         StringBuilder generatedPassword = new StringBuilder();
         for (int i = 0; i < i_passwordLength; i++) {
@@ -759,7 +908,8 @@ public class GimmePassword extends AppCompatActivity {
 
             // add a splitting char between words if needed
             if (i + 1 < i_passwordLength) {
-                generatedPassword.append("-");
+                //generatedPassword.append("-");
+                generatedPassword.append(selected_seperator);
             }
         }
 
@@ -787,13 +937,15 @@ public class GimmePassword extends AppCompatActivity {
     }
 
 
-    // #############################################################################################
-    // Tab 3: GENERATE A KATAKANA PASSWORD
-    // #############################################################################################
+    /**
+     * generates a katakana like influenced password
+     *
+     * @param v the view
+     */
     @SuppressWarnings("unused")
     @SuppressLint("SetTextI18n")
-    public void on_generate_katakana(View v) {
-        Log.d(TAG, "on_generate_katakana");
+    public void onGenerateKatakana(View v) {
+        Log.d(TAG, "onGenerateKatakana");
 
         TextView t3_generatedPassword;
 
@@ -808,7 +960,6 @@ public class GimmePassword extends AppCompatActivity {
         int index_v;
 
         // Define charsets
-        //
         final String[] consonants = {"k", "s", "t", "n", "h", "m", "y", "r", "w", "f", "g", "z", "d", "b", "p", "K", "S", "T", "N", "H", "M", "Y", "R", "W", "F", "G", "Z", "D", "B", "P"}; // katakana + bonus
         final String[] vowels = {"a", "i", "u", "e", "o", "A", "U", "E", "O"}; // skipping uppercase i
 
@@ -868,12 +1019,14 @@ public class GimmePassword extends AppCompatActivity {
     }
 
 
-    // #############################################################################################
-    // Tab 4: QUERY PWNED DATABASE
-    // #############################################################################################
+    /**
+     * starts the pwned password check of a user given password
+     *
+     * @param v the view
+     */
     @SuppressWarnings("unused")
-    public void on_click_query_pwned_database(View v) {
-        Log.d(TAG, "F: on_click_query_pwned_database");
+    public void onClickQueryPwnedDB(View v) {
+        Log.d(TAG, "F: onClickQueryPwnedDB");
 
         final String userPassword;
 
@@ -901,9 +1054,9 @@ public class GimmePassword extends AppCompatActivity {
     }
 
 
-    // #############################################################################################
-    // A placeholder fragment containing a simple view.
-    // #############################################################################################
+    /**
+     * A placeholder fragment containing a simple view.
+     */
     public static class PlaceholderFragment extends Fragment {
         public PlaceholderFragment() {
         }
@@ -911,16 +1064,15 @@ public class GimmePassword extends AppCompatActivity {
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             Log.d(TAG, "F: onCreateView");
-
             return null;
         }
     }
 
 
-    // #############################################################################################
-    // A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-    // one of the sections/tabs/pages.
-    // #############################################################################################
+    /**
+     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+     * one of the sections/tabs/pages.
+     */
     class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         SectionsPagerAdapter(FragmentManager fm) {
@@ -936,15 +1088,19 @@ public class GimmePassword extends AppCompatActivity {
 
             switch (position) {
                 case 0:
+                    Log.v(TAG,"Tab 1");
                     return new TabDefault();
 
                 case 1:
+                    Log.v(TAG,"Tab 2");
                     return new TabXKCD();
 
                 case 2:
+                    Log.v(TAG,"Tab 3");
                     return new TabKana();
 
                 case 3:
+                    Log.v(TAG,"Tab 4");
                     return new TabPwned();
 
                 default:
@@ -952,10 +1108,12 @@ public class GimmePassword extends AppCompatActivity {
             }
         }
 
+
         @Override
         public int getCount() {
             Log.d(TAG, "F: getCount");
             return 4;
         }
+
     }
 }

@@ -13,6 +13,11 @@
     <string name="action_issues">Feedback</string>
     <string name="action_visit_xkcd">Show XKCD #936</string>
     <string name="action_visit_pwned">Visit pwnedpasswords.com</string>
+    <string name="action_recommend">Send Google Play link to..</string>
+
+    <!-- recommend app -->
+    <string name="recommend_text">I would like to recommend you the following app</string>
+    <string name="play_store_url">https://play.google.com/store/apps/details?id=de.yafp.gimmepassword</string>
 
     <!-- Entropy -->
     <string name="entropy_very_strong">very strong</string>
@@ -46,7 +51,7 @@
 
     <!-- TAB 2: XKCD -->
     <string name="t2_textview_description">Generate a XKCD #936 like password</string>
-    <string name="t2_editText_headline_wordcount">Words</string>
+    <string name="t2_editText_headline_wordcount">Words and Seperator</string>
     <string name="t2_editText_headline_language">Language</string>
     <!-- languages for array.xml -->
     <string name="t2_lang_en">English</string>
@@ -55,6 +60,14 @@
     <string name="t2_lang_it">Italian</string>
     <string name="t2_lang_jp">Japanese</string>
     <string name="t2_lang_es">Spanish</string>
+    <!-- seperator -->
+    <string name="t2_separator_1">-</string>
+    <string name="t2_separator_2">_</string>
+    <string name="t2_separator_3">#</string>
+    <string name="t2_separator_4">.</string>
+    <string name="t2_separator_5">*</string>
+    <string name="t2_separator_6">:</string>
+
 
     <!-- TAB 3: KATAKANA -->
     <string name="t3_textview_description">Generate a memorable password</string>
@@ -79,5 +92,9 @@
     <string name="pwned_warning_message">This password exists in the pwnedpasswords.com database.</string>
     <string name="pwned_ok_title">GOOD</string>
     <string name="pwned_ok_message">This password is NOT known in the pwnedpasswords.com database.</string>
+
+    <string name="pwned_network_issues_title">Connectivity issues</string>
+    <string name="pwned_network_issues_message">Unable to contact target URL. Are you sure you are connected to the internet?</string>
+
 
 </resources>

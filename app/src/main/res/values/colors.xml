@@ -8,11 +8,19 @@
     <color name="colorText">#000000</color>
 
 
+    <color name="colorTab1">#8fc0a9</color>
+    <color name="colorTab2">#68b0ab</color>
+    <color name="colorTab3">#c8d5b9</color>
+    <color name="colorTab4">#9bdeac</color>
+
+
+    <!-- color palette: https://coolors.co/ -->
+
+
 
     <!-- app icon green: #376f4b -->
 
     <!-- default colors
-
         <color name="colorPrimary">#3F51B5</color>
         <color name="colorPrimaryDark">#303F9F</color>
         <color name="colorAccent">#FF4081</color>

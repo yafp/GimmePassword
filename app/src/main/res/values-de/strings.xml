@@ -54,4 +54,15 @@
     <string name="app_icon">Das Gimme Passwort App Symbol</string>
     <string name="all_tabs_footer_image">App Symbol Footer Bild</string>
     <string name="t4_language">Sprache</string>
+    <string name="t2_separator_1">-</string>
+    <string name="t2_separator_2">_</string>
+    <string name="t2_separator_3">#</string>
+    <string name="t2_separator_4">.</string>
+    <string name="t2_separator_5">*</string>
+    <string name="t2_separator_6">:</string>
+    <string name="pwned_network_issues_title">Verbindungsprobleme</string>
+    <string name="pwned_network_issues_message">Ziel-Adresse konnte nicht erreicht werden. Sind Sie mit dem Internet verbunden?</string>
+    <string name="play_store_url">https://play.google.com/store/apps/details?id=de.yafp.gimmepassword</string>
+    <string name="action_recommend">Sende Google Play Link an..</string>
+    <string name="recommend_text">Ich empfehle dir die folgende App</string>
 </resources>

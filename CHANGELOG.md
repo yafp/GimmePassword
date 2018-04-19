@@ -1,9 +1,23 @@
 # Gimme Password Changelog
 
+## Gimme Password 1.2.0 (2018xxyy) CUR DEV
+### ```Added```
+* ```XKCD:``` Added user-selectable separators (#4)
+* ```Pwned:``` Added a notification if network seems down (#7)
+* ```Menu:``` Added option to send Google Play link to other apps
+* ```Dev:``` Integrated LintHub to repository
+* ```Dev:``` Integrated Codacy to repository
+* ```Dev:``` Started with JavaDoc headers
+
+### ```Changed```
+* ```Misc:``` Code-Cleanup
+
+
+
 ## Gimme Password 1.1.1 (20180410)
 ### ```Fixed```
-* ```Tab XKCD:``` Fixed height of words EditText
-* ```Tab Pwned:``` Fixed typo in english translation
+* ```XKCD:``` Fixed height of words EditText
+* ```Pwned:``` Fixed typo in english translation
 * ```Misc:``` Fixed several errors/warnings
 
 ### ```Changed```
@@ -16,7 +30,7 @@
 
 ## Gimme Password 1.1.0 (20180405)
 ### ```Added```
-* ```Tab XKCD:``` Language pre-selection for finnish, german, italian, japanese and spanish
+* ```XKCD:``` Language pre-selection for finnish, german, italian, japanese and spanish
 * ```General:``` Added Firebase support
 
 ### ```Fixed```

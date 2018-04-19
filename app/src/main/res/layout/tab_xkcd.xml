@@ -31,7 +31,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:onClick="on_generate_xkcd"
+        android:onClick="onGenerateXKCD"
         android:text="@string/all_tabs_button_generate"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/t2_generatedPassword"
@@ -93,12 +93,23 @@
         android:inputType="none" />
 
     <Spinner
+        android:id="@+id/t2_seperatorSelection"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:entries="@array/t2_separator_array"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/t2_words" />
+
+    <Spinner
         android:id="@+id/t2_languageSelection"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:entries="@array/t2_country_arrays"
+        android:entries="@array/t2_country_array"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/t2_language" />
