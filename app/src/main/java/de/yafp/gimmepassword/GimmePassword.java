@@ -126,7 +126,7 @@ public class GimmePassword extends AppCompatActivity {
                     case 0:
                         Log.v(TAG,"Selected Tab-1");
                         //w.setStatusBarColor(getResources().getColor(R.color.colorTab1));
-                        return;
+                        break;
 
 
                     case 1:
@@ -145,28 +145,32 @@ public class GimmePassword extends AppCompatActivity {
                         //ActionBar actionbar = getActionBar();
                         //ActionBar actionbar = getSupportActionBar();
                         //actionbar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorTab2)));
-                        return;
+                        break;
 
                     case 2:
                         Log.v(TAG,"Selected Tab-3");
                         //w.setStatusBarColor(getResources().getColor(R.color.colorTab3));
-                        return;
+                        break;
 
 
                     case 3:
                         Log.v(TAG,"Selected Tab-4");
                         //w.setStatusBarColor(getResources().getColor(R.color.colorTab4));
+                        break;
+
+                    default:
+                        break;
                 }
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                Log.d(TAG, "F: onTabUnselected");
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                Log.d(TAG, "F: onTabReselected");
             }
         });
 
@@ -430,7 +434,7 @@ public class GimmePassword extends AppCompatActivity {
             startActivity(sendIntent);
             */
 
-            Intent share = new Intent(android.content.Intent.ACTION_SEND);
+            Intent share = new Intent(Intent.ACTION_SEND);
             share.setType("text/plain");
             //share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET); // deprecated since API 21
             share.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
@@ -909,7 +913,7 @@ public class GimmePassword extends AppCompatActivity {
             // add a splitting char between words if needed
             if (i + 1 < i_passwordLength) {
                 //generatedPassword.append("-");
-                generatedPassword.append(selected_seperator);
+                generatedPassword.append(selected_separator);
             }
         }
 
