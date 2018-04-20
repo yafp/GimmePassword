@@ -25,8 +25,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -106,74 +104,6 @@ public class GimmePassword extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-
-        // V: 1.2.0
-        //
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                //do stuff here
-                Log.v(TAG, "----------++++++++++++++--------");
-                int position = tab.getPosition();
-                Log.v(TAG, Integer.toString(position));
-                Log.v(TAG, "----------++++++++++++++--------");
-
-                Window w = getWindow();
-                w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                w.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
-                switch (position) {
-                    case 0:
-                        Log.v(TAG,"Selected Tab-1");
-                        //w.setStatusBarColor(getResources().getColor(R.color.colorTab1));
-                        break;
-
-
-                    case 1:
-                        Log.v(TAG,"Selected Tab-2");
-                        // Colorize StatusBar
-                        //w.setStatusBarColor(getResources().getColor(R.color.colorTab2));
-
-                        // Colorize ActionBar
-                        //Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorTab2)));
-
-
-                        //Setting up Action bar color using # color code.
-                        //
-                        //results in null object reference
-                        //
-                        //ActionBar actionbar = getActionBar();
-                        //ActionBar actionbar = getSupportActionBar();
-                        //actionbar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorTab2)));
-                        break;
-
-                    case 2:
-                        Log.v(TAG,"Selected Tab-3");
-                        //w.setStatusBarColor(getResources().getColor(R.color.colorTab3));
-                        break;
-
-
-                    case 3:
-                        Log.v(TAG,"Selected Tab-4");
-                        //w.setStatusBarColor(getResources().getColor(R.color.colorTab4));
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                Log.d(TAG, "F: onTabUnselected");
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                Log.d(TAG, "F: onTabReselected");
-            }
-        });
-
         // Log Firebase Event
         logFireBaseEvent("gp_app_Launch");
     }
@@ -216,8 +146,8 @@ public class GimmePassword extends AppCompatActivity {
     /**
      *
      *
-     * @param text
-     * @return
+     * @param text text to be converted to sha1
+     * @return sha1hash as hex
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
      */
@@ -392,14 +322,10 @@ public class GimmePassword extends AppCompatActivity {
 
         // Menu: Issues
         if (id == R.id.action_issues) {
-            Uri uri = Uri.parse("https://github.com/yafp/GimmePassword/issues"); // missing 'http://' will cause crashed
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            startActivity(intent);
+            openURL("https://github.com/yafp/GimmePassword/issues");
 
             // Log Firebase Event
             logFireBaseEvent("gp_url_issues");
-
-            return true;
         }
 
         // Menu: About
@@ -413,12 +339,18 @@ public class GimmePassword extends AppCompatActivity {
 
         // Menu: XKCD
         if (id == R.id.action_visit_xkcd) {
-            openUrlXKCD();
+            openURL("https://xkcd.com/936/");
+
+            // Log Firebase Event
+            logFireBaseEvent("gp_url_xkcd");
         }
 
         // Menu: pwnedpasswords
         if (id == R.id.action_visit_pwned) {
-            openUrlPwned();
+            openURL("https://haveibeenpwned.com/");
+
+            // Log Firebase Event
+            logFireBaseEvent("gp_url_pwned");
         }
 
         // Menu: Recommend Gimme Password
@@ -426,22 +358,12 @@ public class GimmePassword extends AppCompatActivity {
 
             // https://developer.android.com/training/sharing/send.html
             //
-            /*
-            Intent sendIntent = new Intent();
-            sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, recommend_message);
-            sendIntent.setType("text/plain");
-            startActivity(sendIntent);
-            */
-
             Intent share = new Intent(Intent.ACTION_SEND);
             share.setType("text/plain");
             //share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET); // deprecated since API 21
             share.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
 
-
-            // Add data to the intent, the receiving app will decide
-            // what to do with it.
+            // Add data to the intent, the receiving app will decide what to do with it.
             share.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.recommend_text));
             share.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=de.yafp.gimmepassword");
 
@@ -451,47 +373,34 @@ public class GimmePassword extends AppCompatActivity {
             logFireBaseEvent("gp_recommend_app");
         }
 
-
         return super.onOptionsItemSelected(item);
     }
 
 
+
     /**
-     * opens the XKCD #936 url
+     * opens a given URL
+     *
+     * @param targetUrl target-url as string
      */
-    private void openUrlXKCD() {
-        Log.d(TAG, "F: openUrlXKCD");
+    private void openURL(String targetUrl){
+        Log.d(TAG, "F: openURL");
 
         // missing 'http://' will cause crashed
-        Uri uri = Uri.parse("https://xkcd.com/936/");
+        Uri uri = Uri.parse(targetUrl);
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
 
         // Log Firebase Event
-        logFireBaseEvent("gp_url_xkcd");
+        logFireBaseEvent("gp_open_url");
     }
 
-
-    /**
-     * opens the pwned url
-     */
-    private void openUrlPwned() {
-        Log.d(TAG, "F: openUrlPwned");
-
-        // missing 'http://' will cause crashed
-        Uri uri = Uri.parse("https://haveibeenpwned.com/");
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
-
-        // Log Firebase Event
-        logFireBaseEvent("gp_url_pwned");
-    }
 
 
     /**
      * opens the about dialog
      *
-     * @throws NameNotFoundException
+     * @throws NameNotFoundException in case getting package information fails
      */
     private void showAbout() throws NameNotFoundException {
         Log.d(TAG, "F: showAbout");
@@ -531,7 +440,7 @@ public class GimmePassword extends AppCompatActivity {
      *
      * @param length the password lenth
      * @param characters the size of the character set used for password generation
-     * @return
+     * @return returns the calculated entropy as int and a desribing password quality text
      */
     private String[] calculateEntropy(int length, int characters) {
         Log.d(TAG, "F: calculateEntropy");
@@ -545,7 +454,6 @@ public class GimmePassword extends AppCompatActivity {
 
         // calculated entropy as string
         String password_entropy = Double.toString(total);
-
 
         String password_quality;
         if (total > 128) {
@@ -652,8 +560,8 @@ public class GimmePassword extends AppCompatActivity {
     /**
      * helper for pwned password check routine
      *
-     * @param target_url
-     * @return
+     * @param target_url the incoming url which should be used for get cmd
+     * @return either true or false (if get failed)
      */
     private boolean performGet(String target_url) {
         Log.d(TAG, "F: performGet");
@@ -984,11 +892,11 @@ public class GimmePassword extends AppCompatActivity {
         // generate password
         Log.i(TAG, "...generating password");
         for (int i = 0; i < i_passwordLength; i++) {
-            // Odd: pick random consonants array string
+            // Odd position: pick random consonants array string
             random = new Random();
             index_c = random.nextInt(consonants.length);
 
-            // Even: pick random vowels array string
+            // Even position: pick random vowels array string
             random = new Random();
             index_v = random.nextInt(vowels.length);
 
@@ -1092,19 +1000,19 @@ public class GimmePassword extends AppCompatActivity {
 
             switch (position) {
                 case 0:
-                    Log.v(TAG,"Tab 1");
+                    Log.v(TAG,"Tab 1 - Default");
                     return new TabDefault();
 
                 case 1:
-                    Log.v(TAG,"Tab 2");
+                    Log.v(TAG,"Tab 2 - XKCD");
                     return new TabXKCD();
 
                 case 2:
-                    Log.v(TAG,"Tab 3");
+                    Log.v(TAG,"Tab 3 - Kana");
                     return new TabKana();
 
                 case 3:
-                    Log.v(TAG,"Tab 4");
+                    Log.v(TAG,"Tab 4 - Pwned");
                     return new TabPwned();
 
                 default:
@@ -1112,12 +1020,10 @@ public class GimmePassword extends AppCompatActivity {
             }
         }
 
-
         @Override
         public int getCount() {
             Log.d(TAG, "F: getCount");
             return 4;
         }
-
     }
 }

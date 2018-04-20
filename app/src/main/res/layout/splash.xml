@@ -9,7 +9,7 @@
 
     <ImageView android:id="@+id/splashscreen" android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:src="@drawable/app_icon_default_256"
+        android:src="@drawable/app_icon_default"
         android:contentDescription="@string/app_icon"
         android:layout_gravity="center"/>
 
