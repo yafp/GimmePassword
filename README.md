@@ -48,7 +48,7 @@ Wordlist for the following languages are included
 ![xkcd](https://raw.githubusercontent.com/yafp/GimmePassword/master/doc/images/GooglePlay/GimmePassword_en_TabXKCD.png)
 
 
-### Kata/Katakana
+### Kana/Katakana
 Generates memorable passwords based on kana and katakana.
 
 For details see [here]( https://en.wikipedia.org/wiki/Kana).
