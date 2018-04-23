@@ -15,6 +15,9 @@ import android.widget.Spinner;
 import java.util.Locale;
 
 
+/**
+ * Password Generation Tab - Typ; XKCD
+ */
 public class TabXKCD extends Fragment{
 
     private static final String TAG = "Gimme Password";

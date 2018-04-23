@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+/**
+ * Password Generation Tab - Typ; Kana
+ */
 public class TabKana extends Fragment{
 
     private static final String TAG = "Gimme Password";

@@ -3,26 +3,75 @@ apply plugin: 'com.android.application'
 
 android {
 
+    // LintOptions:
+    // http://google.github.io/android-gradle-dsl/current/com.android.build.gradle.internal.dsl.LintOptions.html#com.android.build.gradle.internal.dsl.LintOptions
     lintOptions {
         disable 'UnusedResources'
     }
 
+    // minSdkVersion <= targetSdkVersion <= compileSdkVersion
+
+    // version of the compiler used in building the app,
     compileSdkVersion 27
 
     defaultConfig {
         applicationId "de.yafp.gimmepassword"
+
+        // The minSdkVersion is one of the signals the Google Play Store uses to determine which of a user’s devices an app can be installed on.
         minSdkVersion 21
+
+        // the "API level that the application targets"
         targetSdkVersion 27
+
+        // An internal version number.
+        // This number is used only to determine whether one version is more recent than another,
+        // with higher numbers indicating more recent versions.
+        // This is not the version number shown to users; that number is set by the versionName attribute.
+        // The value must be set as an integer, such as "100".
+        // You can define it however you want, as long as each successive version has a higher number.
         versionCode 6
+
+        // The version name shown to users.
+        // This attribute can be set as a raw string or as a reference to a string resource.
+        // The string has no other purpose than to be displayed to users.
+        // The versionCode attribute holds the significant version number used internally.
         versionName "1.1.1"
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard-rules.pro'
         }
+    }
+
+
+    // Attempt to auto-generate javadocs while building
+    //
+    // running:
+    //      ./gradlew createJavadocs
+    //
+    // results in a javadoc folder in:
+    //      app\build\docs
+    //
+    task createJavadocs  (type: Javadoc) {
+        source = project.android.sourceSets.main.java.srcDirs
+        options.linkSource true
+        classpath += project.files(project.android.getBootClasspath().join(File.pathSeparator))
+        failOnError false
+        //
+        //destinationDir = projectDir
+        destinationDir = file("$rootDir/doc/Javadoc")
+    }
+
+    // the actual triggering of the task above
+    afterEvaluate {
+        assembleDebug.dependsOn createJavadocs
+        packageRelease.finalizedBy(createJavadocs)
+        build.finalizedBy(createJavadocs)
     }
 }
 
@@ -48,27 +97,4 @@ apply plugin: 'com.google.gms.google-services'
 
 
 
-// Attempt to auto-generate javadocs while building
-//
-// running:
-//      ./gradlew createJavadocs
-//
-// results in a javadoc folder in:
-//      app\build\docs
-//
-// via:
-// https://www.stkent.com/2016/01/28/adventures-with-javadocs-part-1.html
-//
-task createJavadocs  (type: Javadoc) {
-    source = project.android.sourceSets.main.java.srcDirs
-    options.linkSource true
-    classpath += project.files(project.android.getBootClasspath().join(File.pathSeparator))
-    failOnError false
-    //
-    //destinationDir = projectDir
-    destinationDir = file("$rootDir/doc/Javadoc")
-}
 
-// unsure how to use this
-// idea is to automatically run the task after build
-build.finalizedBy(createJavadocs)

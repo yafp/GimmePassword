@@ -52,6 +52,9 @@ import java.util.Random;
 import static java.lang.Math.log;
 import static java.lang.Math.pow;
 
+/**
+ * Main class
+ */
 public class GimmePassword extends AppCompatActivity {
 
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -61,9 +64,11 @@ public class GimmePassword extends AppCompatActivity {
     private char[] chars;
     private int i_passwordLength;
 
-    // #############################################################################################
-    // ON CREATE
-    // #############################################################################################
+    /**
+     * on create
+     *
+     * @param savedInstanceState you will get the Bundle null when activity get starts first time and it will get in use when activity orientation get changed
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,7 +129,7 @@ public class GimmePassword extends AppCompatActivity {
     /**
      * convert to hex
      *
-     * @param data
+     * @param data data to be converted
      * @return returns the converted HEX
      */
     private static String convertToHex(byte[] data) {
@@ -148,8 +153,8 @@ public class GimmePassword extends AppCompatActivity {
      *
      * @param text text to be converted to sha1
      * @return sha1hash as hex
-     * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException
+     * @throws NoSuchAlgorithmException  This exception is thrown when a particular cryptographic algorithm is requested but is not available in the environment.
+     * @throws UnsupportedEncodingException The Character Encoding is not supported.
      */
     private static String generateSHA1(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         Log.d(TAG, "F: generateSHA1");
@@ -293,7 +298,7 @@ public class GimmePassword extends AppCompatActivity {
      * adds menu items to the main menu
      *
      * @param menu the menu
-     * @return
+     * @return  true: for the menu to be displayed; false: it will not be shown.
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -309,7 +314,7 @@ public class GimmePassword extends AppCompatActivity {
      * runs when the user selects an entry of the upper right sided menu
      *
      * @param item the selected menu item
-     * @return
+     * @return Return false to allow normal menu processing to proceed, true to consume it here.
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -506,7 +511,7 @@ public class GimmePassword extends AppCompatActivity {
      *  source hash and if not found, the password does not exist in the data set.
      *
      * @param password the generated password string
-     * @throws IOException
+     * @throws IOException Signals that an I/O exception of some sort has occurred.
      */
     private void checkPWNEDPasswords(String password) throws IOException {
         Log.d(TAG, "F: checkPWNEDPasswords");
@@ -676,7 +681,7 @@ public class GimmePassword extends AppCompatActivity {
             EditText n_passwordLength = findViewById(R.id.t1_passwordLength);
             String s_passwordLength = n_passwordLength.getText().toString().trim();
 
-            if ((s_passwordLength.equals("0")) || (s_passwordLength.isEmpty()) || (s_passwordLength.equals(""))) {
+            if (("0".equals(s_passwordLength)) || (s_passwordLength.isEmpty()) || ("".equals(s_passwordLength))) {
                 Log.w(TAG, "...invalid password length detected, changing to default");
                 i_passwordLength = 10;
                 n_passwordLength.setText(Integer.toString(i_passwordLength), TextView.BufferType.EDITABLE);
@@ -724,7 +729,7 @@ public class GimmePassword extends AppCompatActivity {
      * - https://github.com/redacted/XKCD-password-generator/tree/master/xkcdpass/static
      *
      * @param v the view
-     * @throws IOException
+     * @throws IOException Signals that an I/O exception of some sort has occurred.
      */
     @SuppressWarnings("unused")
     @SuppressLint("SetTextI18n")
@@ -812,8 +817,10 @@ public class GimmePassword extends AppCompatActivity {
             // pick random word based on random int
             String wordToDisplay = myWords.get(randomInt);
 
-            // Make Uppercase first char
-            wordToDisplay = wordToDisplay.substring(0, 1).toUpperCase(Locale.getDefault()) + wordToDisplay.substring(1);
+            // if its english: manually uppercase first char of each word (as .en wordlist only contains lowercase words)
+            if("words_en.txt".equals(name_of_language_wordlist)){
+                wordToDisplay = wordToDisplay.substring(0, 1).toUpperCase(Locale.getDefault()) + wordToDisplay.substring(1);
+            }
 
             // append to current password
             generatedPassword.append(wordToDisplay);
@@ -902,7 +909,9 @@ public class GimmePassword extends AppCompatActivity {
 
             generatedPassword.append(consonants[index_c]).append(vowels[index_v]);
         }
-        generatedPassword = new StringBuilder(generatedPassword.substring(0, i_passwordLength)); // Substring to match password length
+
+        // result has always an even lenth, so substring it to match user defined password length
+        generatedPassword = new StringBuilder(generatedPassword.substring(0, i_passwordLength));
 
         // display the new password
         chars = generatedPassword.toString().toCharArray();
@@ -970,8 +979,8 @@ public class GimmePassword extends AppCompatActivity {
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
-        public PlaceholderFragment() {
-        }
+        //public PlaceholderFragment() {
+        //}
 
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

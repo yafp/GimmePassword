@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+/**
+ * Used to handle the pseudo splashscreen on app launch
+ */
 public class SplashScreen extends Activity {
 
     private static final String TAG = "Gimme Password";

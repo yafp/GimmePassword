@@ -3,11 +3,8 @@
 ## Gimme Password 1.2.0 (2018xxyy) CUR DEV
 ### ```Added```
 * ```XKCD:``` Added user-selectable separators (#4)
-* ```Pwned:``` Added a notification if network seems down (#7)
-* ```Menu:``` Added option to send Google Play link to other apps
-* ```Dev:``` Integrated LintHub to repository
-* ```Dev:``` Integrated Codacy to repository
-* ```Dev:``` Started with JavaDoc headers
+* ```Pwned:``` Added a notification (to external url handling) if network seems down (#7)
+* ```Menu:``` Added option to send Google Play link to other apps (#8)
 
 ### ```Changed```
 * ```Misc:``` Code-Cleanup

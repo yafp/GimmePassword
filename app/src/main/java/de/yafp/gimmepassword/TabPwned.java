@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+/**
+ * Tab to validate user defined passwords via pwned passwords API
+ */
 public class TabPwned extends Fragment{
 
     @Nullable
