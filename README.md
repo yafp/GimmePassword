@@ -34,7 +34,7 @@ Generates a classic password based on user-selected charsets (uppercase, lowerca
 ### XKCD
 Generates memorable passwords out of several words from a wordlist.
 
-For details see [here](https://xkcd.com/936/).
+[![XKCD](https://raw.githubusercontent.com/yafp/GimmePassword/master/doc/images/xkcd/password_strength.png)](https://xkcd.com/936/)
 
 Wordlist for the following languages are included
 
@@ -60,10 +60,3 @@ For details see [here]( https://en.wikipedia.org/wiki/Kana).
 Password verification against pwned passwords API
 
 ![pwned](https://raw.githubusercontent.com/yafp/GimmePassword/master/doc/images/GooglePlay/GimmePassword_en_TabPwned.png)
-
-
-
-## Credits
-* [XKCD 936](https://xkcd.com/936/)
-* [Icon](https://www.iconfinder.com/icons/2639882/password_icon) - WTFPL license
-* [WordLists](https://github.com/redacted/XKCD-password-generator/tree/master/xkcdpass/static)
