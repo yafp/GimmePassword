@@ -109,7 +109,6 @@ public class GimmePassword extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        // Log Firebase Event
         logFireBaseEvent("gp_app_Launch");
     }
 
@@ -179,7 +178,6 @@ public class GimmePassword extends AppCompatActivity {
         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);       // for center vertical
         toast.show();
 
-        // Log Firebase Event
         logFireBaseEvent("gp_display_toast");
     }
 
@@ -221,7 +219,6 @@ public class GimmePassword extends AppCompatActivity {
         builder.setTitle(R.string.pw_generation_result_dialog_title);
         builder.setIcon(R.mipmap.app_icon_default);
         builder.setMessage(getResources().getString(R.string.entropy_start_text) + " " + entropy_text + " " + getResources().getString(R.string.entropy_end_text) + " " + entropy_value + " ).\n\n" + getResources().getString(R.string.ask_to_query_pwned)).setPositiveButton(getResources().getString(R.string.pw_generation_result_dialog_yes), dialogClickListener).setNegativeButton(getResources().getString(R.string.pw_generation_result_dialog_no), dialogClickListener).show();
-
     }
 
 
@@ -243,7 +240,6 @@ public class GimmePassword extends AppCompatActivity {
                 });
         alertDialog.show();
 
-        // Log Firebase Event
         logFireBaseEvent("gp_pwned_alert");
     }
 
@@ -266,7 +262,6 @@ public class GimmePassword extends AppCompatActivity {
                 });
         alertDialog.show();
 
-        // Log Firebase Event
         logFireBaseEvent("gp_pwned_ok");
     }
 
@@ -289,7 +284,6 @@ public class GimmePassword extends AppCompatActivity {
                 });
         alertDialog.show();
 
-        // Log Firebase Event
         logFireBaseEvent("showNetworkIssuesDialog");
     }
 
@@ -328,8 +322,6 @@ public class GimmePassword extends AppCompatActivity {
         // Menu: Issues
         if (id == R.id.action_issues) {
             openURL("https://github.com/yafp/GimmePassword/issues");
-
-            // Log Firebase Event
             logFireBaseEvent("gp_url_issues");
         }
 
@@ -345,16 +337,12 @@ public class GimmePassword extends AppCompatActivity {
         // Menu: XKCD
         if (id == R.id.action_visit_xkcd) {
             openURL("https://xkcd.com/936/");
-
-            // Log Firebase Event
             logFireBaseEvent("gp_url_xkcd");
         }
 
         // Menu: pwnedpasswords
         if (id == R.id.action_visit_pwned) {
             openURL("https://haveibeenpwned.com/");
-
-            // Log Firebase Event
             logFireBaseEvent("gp_url_pwned");
         }
 
@@ -374,7 +362,6 @@ public class GimmePassword extends AppCompatActivity {
 
             startActivity(Intent.createChooser(share, "Share link"));
 
-            // Log Firebase Event
             logFireBaseEvent("gp_recommend_app");
         }
 
@@ -396,7 +383,6 @@ public class GimmePassword extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
 
-        // Log Firebase Event
         logFireBaseEvent("gp_open_url");
     }
 
@@ -425,7 +411,6 @@ public class GimmePassword extends AppCompatActivity {
         builder.create();
         builder.show();
 
-        // Log Firebase Event
         logFireBaseEvent("gp_show_about");
     }
 
@@ -479,7 +464,6 @@ public class GimmePassword extends AppCompatActivity {
         Log.i(TAG, "...Password quality is: " + password_quality);
         Log.i(TAG, "...Password entropy is: " + password_entropy);
 
-        // Log Firebase Event
         logFireBaseEvent("gp_calculated_entropy");
 
         return new String[]{password_quality, password_entropy};
@@ -516,7 +500,6 @@ public class GimmePassword extends AppCompatActivity {
     private void checkPWNEDPasswords(String password) throws IOException {
         Log.d(TAG, "F: checkPWNEDPasswords");
 
-        // Log Firebase Event
         logFireBaseEvent("gp_pwned_check_started");
 
         // generate sha-1 of password
@@ -612,9 +595,8 @@ public class GimmePassword extends AppCompatActivity {
     public void onGenerateDefault(View v) {
         Log.d(TAG, "F: onGenerateDefault");
 
+        // UI: Reset content of password field
         TextView t1_generatedPassword;
-
-        // Reset content of password field
         t1_generatedPassword = findViewById(R.id.t1_generatedPassword);
         t1_generatedPassword.setText(null);
 
@@ -633,7 +615,7 @@ public class GimmePassword extends AppCompatActivity {
         CheckBox t1_cb_numbers;
         CheckBox t1_cb_specialChars;
 
-        // checkboxes
+        // UI: checkboxes
         t1_cb_uppercaseLetters = findViewById(R.id.t1_cb_uppercaseLetters);
         t1_cb_lowercaseLetters = findViewById(R.id.t1_cb_lowercaseLetters);
         t1_cb_numbers = findViewById(R.id.t1_cb_numbers);
@@ -664,16 +646,10 @@ public class GimmePassword extends AppCompatActivity {
         }
 
         // Check if at least 1 pool is selected or not
-        //if (allowedChars.equals("")) {
         if(("").equals(allowedChars)) {
-            // get error string
-            String cur_error = getResources().getString(R.string.t1_error_empty_char_pool);
-
-            // Show error in log
-            Log.e(TAG, cur_error);
-
-            // show error as toast
-            displayToastMessage(cur_error);
+            String cur_error = getResources().getString(R.string.t1_error_empty_char_pool); // get error string
+            Log.e(TAG, cur_error); // Show error in log
+            displayToastMessage(cur_error); // show error as toast
         } else {
             Log.i(TAG, "...character pool is configured to: " + allowedChars);
 
@@ -698,7 +674,7 @@ public class GimmePassword extends AppCompatActivity {
                 chars[i] = allowedCharsArray[random.nextInt(allowedChars.length())];
             }
 
-            // display the new password
+            // UI: display the new password
             t1_generatedPassword.setText(chars, 0, i_passwordLength);
 
             // calculate entropy
@@ -714,10 +690,9 @@ public class GimmePassword extends AppCompatActivity {
             // Resulting password as string
             String generatedPassword = t1_generatedPassword.getText().toString();
 
-            // Log Firebase Event
             logFireBaseEvent("gp_generate_default");
 
-            // show result
+            // show result as dialog
             askUser(generatedPassword, entropy_text, entropy_value);
         }
     }
@@ -736,19 +711,27 @@ public class GimmePassword extends AppCompatActivity {
     public void onGenerateXKCD(View v) throws IOException {
         Log.d(TAG, "F: onGenerateXKCD");
 
+        // UI: Reset content of password field
         TextView t2_generatedPassword;
-
-        // Reset content of password field
         t2_generatedPassword = findViewById(R.id.t2_generatedPassword);
         t2_generatedPassword.setText(null);
 
-        Random randomGenerator = new Random();
+        // UI: get selected separator
+        Spinner t2_s_separator_selection = findViewById(R.id.t2_seperatorSelection);
+        String selected_separator = t2_s_separator_selection.getSelectedItem().toString();
+        Log.i(TAG, "...selected separator: " + selected_separator);
 
-        // get amount of words
+        // UI: get selected language
+        Spinner t2_s_language_selection = findViewById(R.id.t2_languageSelection);
+        String selected_language = t2_s_language_selection.getSelectedItem().toString();
+        Log.i(TAG, "...selected language: " + selected_language);
+
+        // UI: get amount of words
         EditText n_passwordLength = findViewById(R.id.t2_passwordLength);
         String s_passwordLength = n_passwordLength.getText().toString().trim();
 
-        if ((s_passwordLength.equals("0")) || (s_passwordLength.isEmpty()) || (s_passwordLength.equals(""))) {
+        // Validate password length/ amount of words
+        if ((("0").equals(s_passwordLength)) || (s_passwordLength.isEmpty()) || (("").equals(s_passwordLength))) {
             Log.w(TAG, "...invalid amount of words, changing to default");
             i_passwordLength = 4;
             n_passwordLength.setText(Integer.toString(i_passwordLength), TextView.BufferType.EDITABLE);
@@ -757,16 +740,10 @@ public class GimmePassword extends AppCompatActivity {
         }
         Log.i(TAG, "...amount of words is set to " + Integer.toString(i_passwordLength));
 
-        // get selected language
-        Spinner t2_s_language_selection = findViewById(R.id.t2_languageSelection);
-        String selected_language = t2_s_language_selection.getSelectedItem().toString();
-        Log.i(TAG, "...selected language: " + selected_language);
-
-        String name_of_language_wordlist;
-
         // Can't use resource strings in switch-statement because of
         // Error: Constant expression required
         // Thats why we are using an uly if/else
+        String name_of_language_wordlist;
         if (selected_language.equals(getResources().getString(R.string.t2_lang_es))) {
             name_of_language_wordlist = "words_es.txt";
         } else if (selected_language.equals(getResources().getString(R.string.t2_lang_jp))) {
@@ -780,7 +757,6 @@ public class GimmePassword extends AppCompatActivity {
         } else {
             name_of_language_wordlist = "words_en.txt";
         }
-
         Log.i(TAG, "...Selected wordlist: " + name_of_language_wordlist);
 
         // read selected file line by line
@@ -795,48 +771,35 @@ public class GimmePassword extends AppCompatActivity {
         reader = new BufferedReader(new InputStreamReader(in));
         line = reader.readLine();
         while (line != null) {
-            // add current line to List
-            myWords.add(line);
+            myWords.add(line); // add current line to List
             line = reader.readLine();
         }
         in.close();
-
         Log.i(TAG, "...available words in this language-list: " + Integer.toString(myWords.size()));
 
-        // get seperator
-        Spinner t2_s_separator_selection = findViewById(R.id.t2_seperatorSelection);
-        String selected_separator = t2_s_separator_selection.getSelectedItem().toString();
-        Log.i(TAG, "...selected separator: " + selected_separator);
-
         // generate xkcd password from wordlist
+        Random randomGenerator = new Random();
         StringBuilder generatedPassword = new StringBuilder();
         for (int i = 0; i < i_passwordLength; i++) {
-            // generate a random int
-            int randomInt = randomGenerator.nextInt(myWords.size());
-
-            // pick random word based on random int
-            String wordToDisplay = myWords.get(randomInt);
+            int randomInt = randomGenerator.nextInt(myWords.size()); // generate a random int
+            String wordToDisplay = myWords.get(randomInt); // pick random word based on random int
 
             // if its english: manually uppercase first char of each word (as .en wordlist only contains lowercase words)
             if("words_en.txt".equals(name_of_language_wordlist)){
                 wordToDisplay = wordToDisplay.substring(0, 1).toUpperCase(Locale.getDefault()) + wordToDisplay.substring(1);
             }
+            generatedPassword.append(wordToDisplay); // append current word to password
 
-            // append to current password
-            generatedPassword.append(wordToDisplay);
-
-            // add a splitting char between words if needed
+            // add the separator as splitting char between words (if needed)
             if (i + 1 < i_passwordLength) {
-                //generatedPassword.append("-");
                 generatedPassword.append(selected_separator);
             }
         }
 
-        // display the new password
+        // UI: display the new password
         chars = generatedPassword.toString().toCharArray();
         t2_generatedPassword.setText(chars, 0, generatedPassword.length());
 
-        // https://www.explainxkcd.com/wiki/index.php/936:_Password_Strength
         String entropy_results[];
         entropy_results = calculateEntropy(i_passwordLength, myWords.size());
 
@@ -848,10 +811,9 @@ public class GimmePassword extends AppCompatActivity {
 
         generatedPassword = new StringBuilder(t2_generatedPassword.getText().toString());
 
-        // Log Firebase Event
         logFireBaseEvent("gp_generate_xkcd");
 
-        // run result dialog for user
+        // show result dialog for user
         askUser(generatedPassword.toString(), entropy_text, entropy_value);
     }
 
@@ -866,9 +828,8 @@ public class GimmePassword extends AppCompatActivity {
     public void onGenerateKatakana(View v) {
         Log.d(TAG, "onGenerateKatakana");
 
+        // UI: Reset content of password field
         TextView t3_generatedPassword;
-
-        // Reset content of password field
         t3_generatedPassword = findViewById(R.id.t3_generatedPassword);
         t3_generatedPassword.setText(null);
 
@@ -884,9 +845,7 @@ public class GimmePassword extends AppCompatActivity {
 
         // get password length
         EditText n_passwordLength = findViewById(R.id.t3_passwordLength);
-
         String s_passwordLength = n_passwordLength.getText().toString().trim();
-
         if ((s_passwordLength.equals("0")) || (s_passwordLength.isEmpty()) || (s_passwordLength.equals(""))) {
             Log.w(TAG, "...invalid password length detected, changing to default");
             i_passwordLength = 10;
@@ -913,26 +872,23 @@ public class GimmePassword extends AppCompatActivity {
         // result has always an even lenth, so substring it to match user defined password length
         generatedPassword = new StringBuilder(generatedPassword.substring(0, i_passwordLength));
 
-        // display the new password
+        // UI: display the new password
         chars = generatedPassword.toString().toCharArray();
         t3_generatedPassword.setText(chars, 0, i_passwordLength);
 
         // entropy
         int allowedChars = consonants.length + vowels.length; // get charset size
-
         String entropy_results[]; // prepare array for entropy values
         entropy_results = calculateEntropy(i_passwordLength, allowedChars); // get entropy values
 
         // show entropy results
         String entropy_text;
         entropy_text = entropy_results[0];
-
         String entropy_value;
         entropy_value = entropy_results[1];
 
         generatedPassword = new StringBuilder(t3_generatedPassword.getText().toString());
 
-        // Log Firebase Event
         logFireBaseEvent("gp_generate_kana");
 
         // run result dialog for user
@@ -957,14 +913,9 @@ public class GimmePassword extends AppCompatActivity {
         userPassword = t4_userPassword.getText().toString();
 
         if (userPassword.length() == 0) {
-            // get error string
-            String cur_error = getResources().getString(R.string.t4_error_password);
-
-            // Show error in log
-            Log.e(TAG, cur_error);
-
-            // show error as toast
-            displayToastMessage(cur_error);
+            String cur_error = getResources().getString(R.string.t4_error_password);  // get error string
+            Log.e(TAG, cur_error); // Show error in log
+            displayToastMessage(cur_error); // show error as toast
         } else {
             try {
                 checkPWNEDPasswords(userPassword);
@@ -979,8 +930,6 @@ public class GimmePassword extends AppCompatActivity {
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
-        //public PlaceholderFragment() {
-        //}
 
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -991,8 +940,7 @@ public class GimmePassword extends AppCompatActivity {
 
 
     /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
+     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to one of the sections/tabs/pages.
      */
     class SectionsPagerAdapter extends FragmentPagerAdapter {
 

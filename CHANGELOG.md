@@ -2,9 +2,9 @@
 
 ## Gimme Password 1.2.0 (2018xxyy) CUR DEV
 ### ```Added```
-* ```XKCD:``` Added user-selectable separators (#4)
-* ```Pwned:``` Added a notification (to external url handling) if network seems down (#7)
-* ```Menu:``` Added option to send Google Play link to other apps (#8)
+* ```XKCD:``` Added user-selectable separators (Issue #4)
+* ```Pwned:``` Added a notification (to external url handling) if network seems down (Issue #7)
+* ```Menu:``` Added option to send Google Play link to other apps (Issue #8)
 
 ### ```Changed```
 * ```Misc:``` Code-Cleanup
@@ -18,7 +18,7 @@
 * ```Misc:``` Fixed several errors/warnings
 
 ### ```Changed```
-* ```Icon:``` App-Icon is now available in the dpi-specific locations.
+* ```Icon:``` App-Icon is now available in the dpi-specific locations (Issue #6)
 
 ###  ```Removed```
 * ```About:``` Removed permission informations from about screen
@@ -27,8 +27,8 @@
 
 ## Gimme Password 1.1.0 (20180405)
 ### ```Added```
-* ```XKCD:``` Language pre-selection for finnish, german, italian, japanese and spanish
-* ```General:``` Added Firebase support
+* ```XKCD:``` Language pre-selection for finnish, german, italian, japanese and spanish (Issue #2)
+* ```General:``` Added Firebase support (Issue #1)
 
 ### ```Fixed```
 * ```Misc:``` Fixed several minor bugs, warnings etc

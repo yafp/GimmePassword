@@ -18,10 +18,10 @@ android {
         applicationId "de.yafp.gimmepassword"
 
         // The minSdkVersion is one of the signals the Google Play Store uses to determine which of a user’s devices an app can be installed on.
-        minSdkVersion 21
+        minSdkVersion 21 // Android 5.0
 
         // the "API level that the application targets"
-        targetSdkVersion 27
+        targetSdkVersion 27 // android 8.1
 
         // An internal version number.
         // This number is used only to determine whether one version is more recent than another,
@@ -62,7 +62,6 @@ android {
         options.linkSource true
         classpath += project.files(project.android.getBootClasspath().join(File.pathSeparator))
         failOnError false
-        //
         //destinationDir = projectDir
         destinationDir = file("$rootDir/doc/Javadoc")
     }
@@ -90,11 +89,3 @@ dependencies {
 }
 
 apply plugin: 'com.google.gms.google-services'
-
-
-
-
-
-
-
-
