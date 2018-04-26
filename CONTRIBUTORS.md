@@ -1,10 +1,9 @@
-GimmePassword contributors (sorted alphabetically)
+GimmePassword contributors
 ============================================
 
 * **[Florian Pöck](https://github.com/yafp)**
 
   * Author and maintainer
-  * Most features develpopment
 
 * **[Famil Qasimov](https://github.com/familqasimov)**
 
