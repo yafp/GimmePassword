@@ -5,7 +5,7 @@
 
 
 
-![logo](https://raw.githubusercontent.com/yafp/GimmePassword/master/doc/images/AppIcon/app_icon_default_128.png)
+![logo](https://raw.githubusercontent.com/yafp/GimmePassword/master/doc/images/AppIcon/icon_default_96_xhdpi.png)
 
 # GimmePassword
 A password generator for android

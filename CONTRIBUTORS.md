@@ -5,3 +5,7 @@ GimmePassword contributors (sorted alphabetically)
 
   * Author and maintainer
   * Most features develpopment
+
+* **[Famil Qasimov](https://github.com/familqasimov)**
+
+    * Icons

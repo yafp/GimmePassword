@@ -87,16 +87,10 @@ public class GimmePassword extends AppCompatActivity {
 
         // customize action bar
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.mipmap.app_icon_white);
-        getSupportActionBar().setTitle(" " + getResources().getString(R.string.app_name));
+        getSupportActionBar().setIcon(R.mipmap.icon_toolbar_white);
+        getSupportActionBar().setTitle(" " + getResources().getString(R.string.app_name)); // Icon + Space + String
 
         // Create the adapter that will return a fragment for each of the three primary sections of the activity.
-        /*
-        The {@link android.support.v4.view.PagerAdapter} that will provide fragments for each of the sections.
-        We use a {@link FragmentPagerAdapter} derivative, which will keep every loaded fragment in memory.
-        If this becomes too memory intensive, it may be best to switch to a
-        {@link android.support.v4.app.FragmentStatePagerAdapter}.
-        */
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
@@ -119,6 +113,8 @@ public class GimmePassword extends AppCompatActivity {
      * @param message the message text to be logged
      */
     private void logFireBaseEvent(String message) {
+        Log.d(TAG, "F: logFireBaseEvent");
+
         Bundle params = new Bundle();
         params.putString(message, "1");
         mFirebaseAnalytics.logEvent(message, params);
@@ -215,15 +211,16 @@ public class GimmePassword extends AppCompatActivity {
             }
         };
 
+        // create dialog with informations about the quality of the generated password
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.pw_generation_result_dialog_title);
-        builder.setIcon(R.mipmap.app_icon_default);
+        builder.setIcon(R.mipmap.icon_default);
         builder.setMessage(getResources().getString(R.string.entropy_start_text) + " " + entropy_text + " " + getResources().getString(R.string.entropy_end_text) + " " + entropy_value + " ).\n\n" + getResources().getString(R.string.ask_to_query_pwned)).setPositiveButton(getResources().getString(R.string.pw_generation_result_dialog_yes), dialogClickListener).setNegativeButton(getResources().getString(R.string.pw_generation_result_dialog_no), dialogClickListener).show();
     }
 
 
     /**
-     * shows an pwned alert dialog
+     * shows an pwned alert dialog (password hash is known)
      */
     private void showPwnedAlert() {
         Log.d(TAG, "F: showPwnedAlert");
@@ -245,7 +242,7 @@ public class GimmePassword extends AppCompatActivity {
 
 
     /**
-     * shows an pwned ok dialog
+     * shows an pwned ok dialog (password hash is unknown)
      */
     private void showPwnedOK() {
         Log.d(TAG, "F: showPwnedOK");
@@ -267,7 +264,7 @@ public class GimmePassword extends AppCompatActivity {
 
 
     /**
-     * shows a no-network alert dialog
+     * shows a no-network alert dialog (no response from target)
      */
     private void showNetworkIssuesDialog() {
         Log.d(TAG, "F: showNetworkIssuesDialog");
@@ -404,7 +401,7 @@ public class GimmePassword extends AppCompatActivity {
         PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setIcon(R.mipmap.app_icon_default);
+        builder.setIcon(R.mipmap.icon_default);
         builder.setTitle(R.string.app_name);
         builder.setView(messageView);
         builder.setMessage("\nPackage:\t\t" + info.packageName + "\nVersion:\t\t\t" + info.versionName + "\nBuild:\t\t\t\t" + info.versionCode);
@@ -531,15 +528,10 @@ public class GimmePassword extends AppCompatActivity {
             success = performGet("https://api.pwnedpasswords.com/pwnedpassword/" + hashstring);
             if (success) {
                 Log.w(TAG, "...major bummer, the complete password hash is known at pwnedpasswords.com");
-
-                // show warning dialog
-                showPwnedAlert();
-
+                showPwnedAlert(); // show warning dialog
             } else {
                 Log.i(TAG, "...the complete password hash is not known at pwnedpasswords.com.");
-
-                // show ok dialog
-                showPwnedOK();
+                showPwnedOK(); // show ok dialog
             }
         }
     }
@@ -609,11 +601,8 @@ public class GimmePassword extends AppCompatActivity {
         String allowedChars = "";
         Random random;
 
-        // checkboxes
-        CheckBox t1_cb_uppercaseLetters;
-        CheckBox t1_cb_lowercaseLetters;
-        CheckBox t1_cb_numbers;
-        CheckBox t1_cb_specialChars;
+        // define checkboxes
+        CheckBox t1_cb_uppercaseLetters, t1_cb_lowercaseLetters, t1_cb_numbers, t1_cb_specialChars;
 
         // UI: checkboxes
         t1_cb_uppercaseLetters = findViewById(R.id.t1_cb_uppercaseLetters);
@@ -740,8 +729,7 @@ public class GimmePassword extends AppCompatActivity {
         }
         Log.i(TAG, "...amount of words is set to " + Integer.toString(i_passwordLength));
 
-        // Can't use resource strings in switch-statement because of
-        // Error: Constant expression required
+        // Can't use resource strings in switch-statement because of "Constant expression required" error
         // Thats why we are using an uly if/else
         String name_of_language_wordlist;
         if (selected_language.equals(getResources().getString(R.string.t2_lang_es))) {
@@ -757,7 +745,6 @@ public class GimmePassword extends AppCompatActivity {
         } else {
             name_of_language_wordlist = "words_en.txt";
         }
-        Log.i(TAG, "...Selected wordlist: " + name_of_language_wordlist);
 
         // read selected file line by line
         List<String> myWords;
@@ -775,7 +762,7 @@ public class GimmePassword extends AppCompatActivity {
             line = reader.readLine();
         }
         in.close();
-        Log.i(TAG, "...available words in this language-list: " + Integer.toString(myWords.size()));
+        Log.i(TAG, "...Selected wordlist: " + name_of_language_wordlist +" features "+ Integer.toString(myWords.size())+ " words.");
 
         // generate xkcd password from wordlist
         Random randomGenerator = new Random();

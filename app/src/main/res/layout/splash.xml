@@ -7,11 +7,15 @@
     tools:ignore="Overdraw">
 
 
-    <ImageView android:id="@+id/splashscreen" android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/splashscreen"
+        android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:src="@drawable/app_icon_default"
+        android:layout_gravity="center"
+        android:layout_marginLeft="64dp"
+        android:layout_marginRight="64dp"
         android:contentDescription="@string/app_icon"
-        android:layout_gravity="center"/>
+        android:src="@drawable/icon_default" />
 
     <TextView android:layout_width="fill_parent"
         android:layout_height="wrap_content"

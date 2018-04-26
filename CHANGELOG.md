@@ -8,6 +8,7 @@
 
 ### ```Changed```
 * ```Misc:``` Code-Cleanup
+* ```UI:``` New app icons (#9)
 
 
 

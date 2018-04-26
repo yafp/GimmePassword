@@ -1,6 +1,16 @@
+/**
+ * The first line in the build configuration applies the Android plugin for
+ * Gradle to this build and makes the android block available to specify
+ * Android-specific build options.
+ */
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 
+/**
+ * The android block is where you configure all your Android-specific
+ * build options.
+ */
 android {
 
     // LintOptions:
@@ -9,42 +19,89 @@ android {
         disable 'UnusedResources'
     }
 
+    // General rule:
     // minSdkVersion <= targetSdkVersion <= compileSdkVersion
 
-    // version of the compiler used in building the app,
+    /**
+     * compileSdkVersion specifies the Android API level Gradle should use to
+     * compile your app. This means your app can use the API features included in
+     * this API level and lower.
+     */
     compileSdkVersion 27
 
+
+    /**
+     * buildToolsVersion specifies the version of the SDK build tools, command-line
+     * utilities, and compiler that Gradle should use to build your app. You need to
+     * download the build tools using the SDK Manager.
+     *
+     * If you're using Android plugin 3.0.0 or higher, this property is optional—
+     * the plugin uses a recommended version of the build tools by default.
+     */
+    buildToolsVersion "27.0.3"
+
+
+    /**
+    * The defaultConfig block encapsulates default settings and entries for all
+    * build variants, and can override some attributes in main/AndroidManifest.xml
+    * dynamically from the build system. You can configure product flavors to override
+    * these values for different versions of your app.
+    */
     defaultConfig {
+
+        /**
+         * applicationId uniquely identifies the package for publishing.
+         * However, your source code should still reference the package name
+         * defined by the package attribute in the main/AndroidManifest.xml file.
+         */
         applicationId "de.yafp.gimmepassword"
 
-        // The minSdkVersion is one of the signals the Google Play Store uses to determine which of a user’s devices an app can be installed on.
+        /**
+         * Defines the minimum API level required to run the app.
+         * The minSdkVersion is one of the signals the Google Play Store uses to determine which of a user’s devices an app can be installed on.
+         */
         minSdkVersion 21 // Android 5.0
 
-        // the "API level that the application targets"
+        // Specifies the API level used to test the app.
         targetSdkVersion 27 // android 8.1
 
-        // An internal version number.
-        // This number is used only to determine whether one version is more recent than another,
-        // with higher numbers indicating more recent versions.
-        // This is not the version number shown to users; that number is set by the versionName attribute.
-        // The value must be set as an integer, such as "100".
-        // You can define it however you want, as long as each successive version has a higher number.
-        versionCode 6
+        /**
+         * An internal version number.
+         *This number is used only to determine whether one version is more recent than another,
+         * with higher numbers indicating more recent versions.
+         * This is not the version number shown to users; that number is set by the versionName attribute.
+         * The value must be set as an integer, such as "100".
+         * You can define it however you want, as long as each successive version has a higher number.
+         */
+        versionCode 7
 
-        // The version name shown to users.
-        // This attribute can be set as a raw string or as a reference to a string resource.
-        // The string has no other purpose than to be displayed to users.
-        // The versionCode attribute holds the significant version number used internally.
-        versionName "1.1.1"
+        /**
+         * The version name shown to users.
+         * This attribute can be set as a raw string or as a reference to a string resource.
+         * The string has no other purpose than to be displayed to users.
+         * The versionCode attribute holds the significant version number used internally.
+         */
+        versionName "1.2.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        //testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
+    /**
+     * The buildTypes block is where you can configure multiple build types.
+     * By default, the build system defines two build types: debug and release. The
+     * debug build type is not explicitly shown in the default build configuration,
+     * but it includes debugging tools and is signed with the debug key. The release
+     * build type applies Proguard settings and is not signed by default.
+     */
     buildTypes {
+
+        /**
+         * By default, Android Studio configures the release build type to enable code
+         * shrinking, using minifyEnabled, and specifies the Proguard settings file.
+         */
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'),
-                    'proguard-rules.pro'
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
@@ -74,6 +131,14 @@ android {
     }
 }
 
+/**
+ * The dependencies block in the module-level build configuration file
+ * only specifies dependencies required to build the module itself.
+ *
+ * If you're using Android plugin 3.0.0 or higher, you should
+ * use the new dependency configurations, which help you improve build speeds by
+ * restricting which dependencies leak their APIs to other modules.
+ */
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:support-v4:27.1.1'
@@ -84,8 +149,6 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
 
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
-
-apply plugin: 'com.google.gms.google-services'
