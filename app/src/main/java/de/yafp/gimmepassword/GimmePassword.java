@@ -602,7 +602,10 @@ public class GimmePassword extends AppCompatActivity {
         Random random;
 
         // define checkboxes
-        CheckBox t1_cb_uppercaseLetters, t1_cb_lowercaseLetters, t1_cb_numbers, t1_cb_specialChars;
+        CheckBox t1_cb_uppercaseLetters;
+        CheckBox t1_cb_lowercaseLetters;
+        CheckBox t1_cb_numbers;
+        CheckBox t1_cb_specialChars;
 
         // UI: checkboxes
         t1_cb_uppercaseLetters = findViewById(R.id.t1_cb_uppercaseLetters);
@@ -612,25 +615,21 @@ public class GimmePassword extends AppCompatActivity {
 
         // get checkbox state: uppercase
         if (t1_cb_uppercaseLetters.isChecked()) {
-            Log.i(TAG, "...adding uppercase to character pool");
             allowedChars = allowedChars + charPool_uppercaseLetters;
         }
 
         // get checkbox state: lowercase
         if (t1_cb_lowercaseLetters.isChecked()) {
-            Log.i(TAG, "...adding lowercase to character pool");
             allowedChars = allowedChars + charPool_lowercaseLetters;
         }
 
         // get checkbox state: numbers
         if (t1_cb_numbers.isChecked()) {
-            Log.i(TAG, "...adding numbers to character pool");
             allowedChars = allowedChars + charPool_numbers;
         }
 
         // get checkbox state: special chars
         if (t1_cb_specialChars.isChecked()) {
-            Log.i(TAG, "...adding special chars to character pool");
             allowedChars = allowedChars + charPool_specialChars;
         }
 
@@ -645,7 +644,6 @@ public class GimmePassword extends AppCompatActivity {
             // get password length
             EditText n_passwordLength = findViewById(R.id.t1_passwordLength);
             String s_passwordLength = n_passwordLength.getText().toString().trim();
-
             if (("0".equals(s_passwordLength)) || (s_passwordLength.isEmpty()) || ("".equals(s_passwordLength))) {
                 Log.w(TAG, "...invalid password length detected, changing to default");
                 i_passwordLength = 10;
@@ -663,8 +661,7 @@ public class GimmePassword extends AppCompatActivity {
                 chars[i] = allowedCharsArray[random.nextInt(allowedChars.length())];
             }
 
-            // UI: display the new password
-            t1_generatedPassword.setText(chars, 0, i_passwordLength);
+            t1_generatedPassword.setText(chars, 0, i_passwordLength); // UI: display the new password
 
             // calculate entropy
             String entropy_results[];
@@ -676,13 +673,11 @@ public class GimmePassword extends AppCompatActivity {
             String entropy_value;
             entropy_value = entropy_results[1];
 
-            // Resulting password as string
-            String generatedPassword = t1_generatedPassword.getText().toString();
+            String generatedPassword = t1_generatedPassword.getText().toString(); // Resulting password as string
 
             logFireBaseEvent("gp_generate_default");
 
-            // show result as dialog
-            askUser(generatedPassword, entropy_text, entropy_value);
+            askUser(generatedPassword, entropy_text, entropy_value); // show result as dialog
         }
     }
 
@@ -708,12 +703,10 @@ public class GimmePassword extends AppCompatActivity {
         // UI: get selected separator
         Spinner t2_s_separator_selection = findViewById(R.id.t2_seperatorSelection);
         String selected_separator = t2_s_separator_selection.getSelectedItem().toString();
-        Log.i(TAG, "...selected separator: " + selected_separator);
 
         // UI: get selected language
         Spinner t2_s_language_selection = findViewById(R.id.t2_languageSelection);
         String selected_language = t2_s_language_selection.getSelectedItem().toString();
-        Log.i(TAG, "...selected language: " + selected_language);
 
         // UI: get amount of words
         EditText n_passwordLength = findViewById(R.id.t2_passwordLength);
@@ -729,8 +722,7 @@ public class GimmePassword extends AppCompatActivity {
         }
         Log.i(TAG, "...amount of words is set to " + Integer.toString(i_passwordLength));
 
-        // Can't use resource strings in switch-statement because of "Constant expression required" error
-        // Thats why we are using an uly if/else
+        // Can't use resource strings in switch-statement because of "Constant expression required" error - Thats why we are using an uly if/else
         String name_of_language_wordlist;
         if (selected_language.equals(getResources().getString(R.string.t2_lang_es))) {
             name_of_language_wordlist = "words_es.txt";
@@ -797,11 +789,8 @@ public class GimmePassword extends AppCompatActivity {
         entropy_value = entropy_results[1];
 
         generatedPassword = new StringBuilder(t2_generatedPassword.getText().toString());
-
+        askUser(generatedPassword.toString(), entropy_text, entropy_value); // show result dialog for user
         logFireBaseEvent("gp_generate_xkcd");
-
-        // show result dialog for user
-        askUser(generatedPassword.toString(), entropy_text, entropy_value);
     }
 
 
@@ -833,7 +822,7 @@ public class GimmePassword extends AppCompatActivity {
         // get password length
         EditText n_passwordLength = findViewById(R.id.t3_passwordLength);
         String s_passwordLength = n_passwordLength.getText().toString().trim();
-        if ((s_passwordLength.equals("0")) || (s_passwordLength.isEmpty()) || (s_passwordLength.equals(""))) {
+        if (("0").equals(s_passwordLength) || s_passwordLength.isEmpty() || ("").equals(s_passwordLength)) {
             Log.w(TAG, "...invalid password length detected, changing to default");
             i_passwordLength = 10;
             n_passwordLength.setText(Integer.toString(i_passwordLength), TextView.BufferType.EDITABLE);

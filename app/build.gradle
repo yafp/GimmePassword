@@ -4,7 +4,7 @@
  * Android-specific build options.
  */
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
+
 
 
 /**
@@ -67,7 +67,7 @@ android {
 
         /**
          * An internal version number.
-         *This number is used only to determine whether one version is more recent than another,
+         * This number is used only to determine whether one version is more recent than another,
          * with higher numbers indicating more recent versions.
          * This is not the version number shown to users; that number is set by the versionName attribute.
          * The value must be set as an integer, such as "100".
@@ -83,7 +83,7 @@ android {
          */
         versionName "1.2.0"
 
-        //testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        // testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     /**
@@ -106,13 +106,10 @@ android {
     }
 
 
-    // Attempt to auto-generate javadocs while building
+    // task to Auto-generate javadocs while building
     //
-    // running:
-    //      ./gradlew createJavadocs
-    //
-    // results in a javadoc folder in:
-    //      app\build\docs
+    // running:  ./gradlew createJavadocs
+    // results in a javadoc folder in: app\build\docs
     //
     task createJavadocs  (type: Javadoc) {
         source = project.android.sourceSets.main.java.srcDirs
@@ -146,9 +143,10 @@ dependencies {
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.google.firebase:firebase-core:15.0.0'
-
     testImplementation 'junit:junit:4.12'
-
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+
+
+apply plugin: 'com.google.gms.google-services' // must be at bottom
