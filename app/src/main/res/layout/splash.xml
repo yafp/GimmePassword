@@ -12,8 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_gravity="center"
-        android:layout_marginLeft="64dp"
-        android:layout_marginRight="64dp"
+        android:layout_marginLeft="128dp"
+        android:layout_marginRight="128dp"
         android:contentDescription="@string/app_icon"
         android:src="@drawable/icon_default" />
 
