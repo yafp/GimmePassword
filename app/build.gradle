@@ -19,7 +19,9 @@ android {
         disable 'UnusedResources'
     }
 
+
     // General rule:
+    //
     // minSdkVersion <= targetSdkVersion <= compileSdkVersion
 
     /**

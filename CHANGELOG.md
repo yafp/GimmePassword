@@ -1,6 +1,6 @@
 # Gimme Password Changelog
 
-## Gimme Password 1.2.0 (2018xxyy) CUR DEV
+## Gimme Password 1.2.0 (20180505)
 ### ```Added```
 * ```XKCD:``` Added user-selectable separators (Issue #4)
 * ```Pwned:``` Added a notification (to external url handling) if network seems down (Issue #7)
